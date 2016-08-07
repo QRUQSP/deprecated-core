@@ -1,0 +1,42 @@
+#
+# Description
+# -----------
+# This table links users to a station as operator or listener. Users can be linked to a station
+# multiple times for each permission group if required.
+# 
+# Fields
+# ------
+# id:                   The ID for this station user.
+# uuid:                 The Univeral Unique ID.
+# station_id:           The ID of the station.
+#
+# user_id:              The ID of the user.
+#
+# permission_group:     The group the user is a part of. (owners, employees), future roles (sysadmin, accountant, assistant, etc)
+#
+#                           operators - complete access to station database and all information
+# 
+# status:               The current status of the user for this station.
+#
+#                           0 - unknown
+#                           10 - active
+#                           20 - locked **future**
+#                           60 - deleted
+#
+# date_added:           The UTC date and time the record was created.
+# last_updated:         The UTC date and time the record was last updated.
+# last_login:           The UTC date and time the user last logged into the admin section.
+#
+create table qruqsp_station_users (
+    id int not null auto_increment,
+    uuid char(36) not null,
+    station_id int not null,
+    user_id int not null,
+    permission_group varchar(50) not null,
+    status tinyint unsigned not null,
+    date_added datetime not null,
+    last_updated datetime not null,
+    last_login datetime not null,
+    primary key (id),
+    unique index (station_id, user_id, permission_group)
+) ENGINE=InnoDB, COMMENT='v1.01';

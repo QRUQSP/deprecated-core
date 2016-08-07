@@ -1,0 +1,28 @@
+#
+# Description
+# -----------
+# This table stores any successful authentications by a user.
+#
+# Fields
+# ------
+# user_id:          The user submitted to qruqsp.core.auth
+#
+# api_key:          The api_key argument, if specified, otherwise blank.
+#
+# ip_address:       The ip address the request came from.
+#
+# log_date:         The date and time of the request.
+#
+# session_key:      The unique key assigned to each session, which can be
+#                   used to track all changes made during that session. 
+#                   The module history tables store session_key for each
+#                   change, to allow session changes to be undone.
+#
+create table qruqsp_core_auth_log (
+    user_id int not null,
+    api_key varchar(32) not null,
+    ip_address varchar(32) not null,
+    log_date datetime not null,
+    session_key varchar(50) not null,
+    primary key (user_id, api_key, ip_address, log_date)
+) ENGINE='InnoDB', COMMENT='v1.01';
