@@ -67,7 +67,7 @@
 #
 # last_pwd_change:      The UTC date and time the password was last changed.
 #
-create table qruqsp_users (
+create table qruqsp_core_users (
     id int not null auto_increment,
     uuid char(36) not null,
     email varchar(255) not null,
