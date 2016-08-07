@@ -1,6 +1,6 @@
 #
 # Description
-# -----------
+# ===========
 # This table stores the users information for any users contained
 # within this database install.  Users can be linked to stations
 # as operators, listeners.
@@ -9,7 +9,7 @@
 # changed by anybody other than root, or themselves.
 #
 # Fields
-# ------
+# ======
 # id:               The id for the user.
 # uuid:             The Universal Unique ID for this user.
 # avatar_id:        The image ID for the users avatar.
@@ -20,6 +20,9 @@
 #                   encrypted password.
 #
 # callsign:         The callsign of the user.
+#
+# license:          The license of the user. Licenses are defined in core/private/licenses.php. 
+#                   If the user does not have a callsign this should be blank.
 #
 # perms:            The permissions this user has.
 #
