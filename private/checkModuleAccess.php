@@ -38,7 +38,7 @@ function qruqsp_core_checkModuleAccess(&$q, $station_id, $args) {
         . "CONCAT_WS('.', qruqsp_core_station_modules.package, qruqsp_core_station_modules.module) AS module_id, "
         . "flags, (flags&0xFFFFFFFF00000000)>>32 as flags2, "
         . "FROM qruqsp_core_stations, qruqsp_core_station_modules "
-        . "WHERE qruqsp_core_stations.id = '" . qruqsp_core_dbQuote($qruqsp, $station_id) . "' "
+        . "WHERE qruqsp_core_stations.id = '" . qruqsp_core_dbQuote($q, $station_id) . "' "
         . "AND qruqsp_core_stations.id = qruqsp_core_station_modules.station_id "
         // Get the optional and mandatory modules
         . "AND (qruqsp_core_station_modules.status = 1 || qruqsp_core_station_modules.status = 2) "
