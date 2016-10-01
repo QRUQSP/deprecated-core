@@ -15,8 +15,7 @@
 #                   2 - deactivated
 #                   3 - deleted (future)
 #
-# appname:          The name to associate with the api_key, 
-#                   typically information about what the key
+# appname:          The name to associate with the api_key, typically information about what the key
 #                   will be used for.
 #
 # notes:            Extra notes for the api_key, not to be shown to public.
@@ -39,5 +38,5 @@ create table qruqsp_core_api_keys (
     date_added datetime not null,
     last_updated datetime not null,
     primary key (api_key),
-    index (user_id)
+    index (appname)
 ) ENGINE=InnoDB, COMMENT='v1.01';

@@ -29,7 +29,7 @@
 #                           dbUpdate, dbDelete, dbInsert, dbReplace.  The remote system will compare these
 #                           values with the last sync time to see if an update needs to happen.
 #
-create table qruqsp_station_modules (
+create table qruqsp_core_station_modules (
     station_id int not null,
     package varchar(50) not null,
     module varchar(50) not null,

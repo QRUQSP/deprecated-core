@@ -24,8 +24,8 @@ function qruqsp_core_init($qruqsp_root, $output_format) {
     //
     // Load the config
     //
-    require_once($qruqsp_root . '/qruqsp-mods/core/private/loadCinikiConfig.php');
-    if( qruqsp_core_loadCinikiConfig($q, $qruqsp_root) == false ) {
+    require_once($qruqsp_root . '/qruqsp-mods/core/private/loadQRUQSPConfig.php');
+    if( qruqsp_core_loadQRUQSPConfig($q, $qruqsp_root) == false ) {
         return array('stat'=>'fail', 'err'=>array('code'=>'qruqsp.core.58', 'msg'=>'Internal configuration error'));
     }
 
