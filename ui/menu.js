@@ -11,7 +11,7 @@ function qruqsp_core_menu() {
         //
         // Get the list of stations the user has access to
         //
-        Q.api.getJSONCb('qruqsp.core.getUserStations', {}, function(r) {
+        Q.api.getJSONCb('qruqsp.core.userStations', {}, function(r) {
             if( r.stat != 'ok' ) {
                 Q.api.err(r);
                 return false;
@@ -53,7 +53,7 @@ function qruqsp_core_menu() {
                 this.stations.data = {};
             }
             this.stations.curCategory = 0;
-            this.stations.addButton('account', 'Account', 'Q.startApp(\'qruqsp.users.main\',null,\'Q.qruqsp_core_menu.stations.show();\');');
+            this.stations.addButton('account', 'Account', 'Q.startApp(\'qruqsp.core.account\',null,\'Q.qruqsp_core_menu.stations.show();\');');
             if( Q.userID > 0 && (Q.userPerms&0x01) == 0x01 ) {
                 this.stations.addButton('admin', 'Admin', 'Q.startApp(\'qruqsp.sysadmin.main\',null,\'Q.qruqsp_core_menu.stations.show();\');');
             }

@@ -5,10 +5,6 @@
 // This function will check for an open connection to the database, 
 // and if not return a new connection.
 //
-// Info
-// ----
-// Status:          beta
-//
 // Arguments
 // ---------
 // qruqsp:

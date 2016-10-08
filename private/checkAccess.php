@@ -4,10 +4,6 @@
 // -----------
 // This function will check if the user has access to a specified module and function.
 //
-// Info
-// ----
-// Status:              beta
-//
 // Arguments
 // ---------
 // qruqsp:
@@ -17,7 +13,7 @@
 // -------
 // <rsp stat='ok' />
 //
-function qruqsp_core_checkAccess($qruqsp, $station_id, $method) {
+function qruqsp_core_checkAccess($q, $station_id, $method) {
     //
     // Methods which don't require authentication
     //
@@ -34,10 +30,10 @@ function qruqsp_core_checkAccess($qruqsp, $station_id, $method) {
     //
     // Check the user is authenticated
     //
-    if( !isset($qruqsp['session'])
-        || !isset($qruqsp['session']['user'])
-        || !isset($qruqsp['session']['user']['id'])
-        || $qruqsp['session']['user']['id'] < 1 ) {
+    if( !isset($q['session'])
+        || !isset($q['session']['user'])
+        || !isset($q['session']['user']['id'])
+        || $q['session']['user']['id'] < 1 ) {
         return array('stat'=>'fail', 'err'=>array('code'=>'qruqsp.core.90', 'msg'=>'User not authenticated'));
     }
 
@@ -58,7 +54,7 @@ function qruqsp_core_checkAccess($qruqsp, $station_id, $method) {
     //
     // If the user is a sysadmin, they have access to all functions
     //
-    if( ($qruqsp['session']['user']['perms'] & 0x01) == 0x01 ) {
+    if( ($q['session']['user']['perms'] & 0x01) == 0x01 ) {
         return array('stat'=>'ok');
     }
 

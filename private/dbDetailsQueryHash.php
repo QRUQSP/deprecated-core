@@ -7,10 +7,6 @@
 // a structured hash form.  This is useful for returning
 // as XML through the API, or used internally.
 //
-// Info
-// ----
-// status:          beta
-//
 // Arguments
 // ---------
 // qruqsp:          

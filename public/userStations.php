@@ -16,12 +16,12 @@
 // Returns
 // -------
 //
-function qruqsp_core_getUserStations($q) {
+function qruqsp_core_userStations($q) {
     //
     // Check access to station_id as owner, or sys admin
     //
     qruqsp_core_loadMethod($q, 'qruqsp', 'core', 'private', 'checkAccess');
-    $ac = qruqsp_core_checkAccess($q, 0, 'qruqsp.core.getUserStations');
+    $ac = qruqsp_core_checkAccess($q, 0, 'qruqsp.core.userStations');
     if( $ac['stat'] != 'ok' ) {
         return $ac;
     }

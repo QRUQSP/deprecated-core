@@ -4,10 +4,6 @@
 // -----------
 // This function will initialize the database structure for the $q variable.
 //
-// Info
-// ----
-// Status:      beta
-//
 // Arguments
 // ---------
 // qruqsp:

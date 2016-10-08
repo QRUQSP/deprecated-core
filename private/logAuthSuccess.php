@@ -4,10 +4,6 @@
 // -----------
 // This function will log all success authentications via the API.
 //
-// Info
-// ----
-// Status:      beta
-//
 // Arguments
 // ---------
 // 

@@ -6,10 +6,6 @@
 // for use in WHERE variable IN (list) sql statements.  This ensures
 // that everything is safe and properly escaped.
 //
-// Info
-// ----
-// Status:          beta
-//
 // Arguments
 // ---------
 // qruqsp:

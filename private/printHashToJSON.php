@@ -4,10 +4,6 @@
 // -----------
 // This function will serialize a hash structure to return to the client.
 //
-// Info
-// ----
-// Status:          beta
-//
 // Arguments
 // ---------
 // name:            The name the top level should be

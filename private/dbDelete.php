@@ -5,10 +5,6 @@
 // This function will run an delete query against the database. 
 // This function is a placeholder and just a passthrough to dbUpdate
 //
-// Info
-// ----
-// status:          beta
-//
 // Arguments
 // ---------
 // q:

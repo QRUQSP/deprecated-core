@@ -4,10 +4,6 @@
 // -----------
 // This function will escape a string to be used in an SQL query
 //
-// Info
-// ----
-// Status:          beta
-//
 // Arguments
 // ---------
 // qruqsp:

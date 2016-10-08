@@ -448,7 +448,6 @@ Q.api.postCb = function(m, p, c, cb) {
         if( this.readyState == 4 && this.status == 200 ) {
             Q.stopLoad();
             if(p.format == 'json') {
-                console.log(this);
                 try {
                     var r = JSON.parse(this.responseText);
                 } catch(e) {

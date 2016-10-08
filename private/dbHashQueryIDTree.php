@@ -9,10 +9,6 @@
 // 
 // FIXME: add documentation
 //
-// Info
-// ----
-// status:          beta
-//
 // Arguments
 // ---------
 // qruqsp:          

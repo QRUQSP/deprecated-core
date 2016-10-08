@@ -11,10 +11,6 @@
 //
 // This function was developed to support qruqsp_imports_autoMerge.
 //
-// Info
-// ----
-// status:          beta
-//
 // Arguments
 // ---------
 // qruqsp:          

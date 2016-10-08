@@ -5,10 +5,6 @@
 // This function will parse the GET and POST arguments for a rest request.
 // This may get used for other interfaces if necessary.
 //
-// Info
-// ----
-// Status:          beta
-//
 // Arguments
 // ---------
 // qruqsp:          The standard qruqsp data structure, the arguments will be parsed into it.

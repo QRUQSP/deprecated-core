@@ -103,8 +103,8 @@ function qruqsp_core_sessionStart(&$q, $username, $password) {
 
     unset($user['login_attempts']);
 
-    qruqsp_core_loadMethod($q, 'qruqsp', 'core', 'private', 'dbDetailsQueryHash');
-    $rc = qruqsp_core_dbDetailsQueryHash($q, 'qruqsp_core_user_details', 'user_id', $user['id'], 'settings', 'qruqsp.core');
+    qruqsp_core_loadMethod($q, 'qruqsp', 'core', 'private', 'dbDetailsQueryDash');
+    $rc = qruqsp_core_dbDetailsQueryDash($q, 'qruqsp_core_user_details', 'user_id', $user['id'], 'qruqsp.core', 'settings', 'settings');
     if( $rc['stat'] != 'ok' ) {
         qruqsp_core_logAuthFailure($q, $username, $rc['err']['code']);
         return $rc;

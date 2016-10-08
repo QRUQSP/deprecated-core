@@ -5,10 +5,6 @@
 // This function is optimized to retrieve detail information,
 // in the form of key=value for a module.
 //
-// Info
-// ----
-// status:          beta
-//
 // Arguments
 // ---------
 // qruqsp:          

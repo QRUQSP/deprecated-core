@@ -2,18 +2,19 @@
 //
 // Description
 // -----------
-// This function will query the database and return a hash of rows.
+// This function will return a simple array.  Only one column will be returned.
 //
 // Arguments
 // ---------
-// qruqsp:          
+// qruqsp:          The qruqsp data structure.
 // strsql:          The SQL string to query the database.
 // module:          The name of the module for the transaction, which should include the 
 //                  package in dot notation.  Example: qruqsp.artcatalog
 // container_name:  The name of the xml/hash tag to return the data under, 
 //                  when there is only one row returned.
+// colname:         The column from the query to put in the list
 //
-function qruqsp_core_dbHashQuery(&$q, $strsql, $module, $container_name) {
+function qruqsp_core_dbQueryList(&$q, $strsql, $module, $container_name, $colname) {
     //
     // Open a connection to the database if one doesn't exist.  The
     // dbConnect function will return an open connection if one 
@@ -32,7 +33,7 @@ function qruqsp_core_dbHashQuery(&$q, $strsql, $module, $container_name) {
     $result = mysqli_query($dh, $strsql);
     if( $result == false ) {
         error_log("SQLERR: " . mysqli_error($dh) . " -- '$strsql'");
-        return array('stat'=>'fail', 'err'=>array('code'=>'qruqsp.code.29', 'msg'=>'Database Error', 'pmsg'=>mysqli_error($dh)));
+        return array('stat'=>'fail', 'err'=>array('code'=>'qruqsp.core.97', 'msg'=>'Database Error', 'pmsg'=>mysqli_error($dh)));
     }
 
     //
@@ -44,18 +45,10 @@ function qruqsp_core_dbHashQuery(&$q, $strsql, $module, $container_name) {
     //
     // Build array of rows
     //
-    $rsp['rows'] = array();
+    $rsp[$container_name] = array();
     while( $row = mysqli_fetch_assoc($result) ) {
-        $rsp['rows'][$rsp['num_rows']++] = $row;
-    }
-
-    mysqli_free_result($result);
-
-    //
-    // Setup the container name if specified
-    //
-    if( $rsp['num_rows'] == 1 && $container_name != '' ) {
-        $rsp[$container_name] = $rsp['rows']['0'];
+        array_push($rsp[$container_name], $row[$colname]);
+        $rsp['num_rows']++;
     }
 
     return $rsp;

@@ -47,7 +47,7 @@ function qruqsp_core_auth(&$q) {
     // Check access 
     //
     qruqsp_core_loadMethod($q, 'qruqsp', 'core', 'private', 'checkAccess');
-    $rc = qruqsp_core_checkAccess($q, 0, 'qruqsp.core.auth', 0);
+    $rc = qruqsp_core_checkAccess($q, 0, 'qruqsp.core.auth');
     if( $rc['stat'] != 'ok' ) {
         return $rc;
     }

@@ -5,10 +5,6 @@
 // This function will load the config file
 // and check for the core root dir variable is set.
 //
-// Info
-// ----
-// Status:          beta
-// 
 // Arguments
 // ---------
 // qruqsp:          The qruqsp data structure
