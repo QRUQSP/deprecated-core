@@ -478,7 +478,7 @@ Javscript must be enabled for this application to work.
 <?php } ?>
     <div id="mf_forgot">
         <div id="mc_content_wrap" class="narrow">
-            <?php print "<img id='logo' class='logo' src='$manage_themes/default/img/logo_com.png'>";?>
+            <?php print "<img id='logo' class='logo' src='$manage_themes/default/img/logo.png'>";?>
             <br/>
             <form id="mf_reset" name="mf_reset" class="narrow" onsubmit="Q.pwdReset(); return false;" action="" method="POST">
                 <div class="section">
@@ -508,7 +508,7 @@ Javscript must be enabled for this application to work.
 <?php } ?>
     <div id="mr_content">
         <div id="mr_content_wrap" class="narrow">
-            <?php print "<img id='logo' class='logo' src='$manage_themes/default/img/logo_com.png'>";?>
+            <?php print "<img id='logo' class='logo' src='$manage_themes/default/img/logo.png'>";?>
             <br/>
             <form id="mr_reset" name="mr_reset" class="narrow" onsubmit="Q.tempPassReset(); return false;" action="" method="POST">
                 <input type='hidden' id='temp_password' value='<?php echo $temp_password;?>'/>
@@ -539,7 +539,7 @@ Javscript must be enabled for this application to work.
 <div id="m_relogin" style="display:none;">
     <div id="mc_relogin">
         <div id="mcw_relogin" class="narrow">
-            <?php print "<img id='logo' class='logo' src='$manage_themes/default/img/logo_com.png'>";?>
+            <?php print "<img id='logo' class='logo' src='$manage_themes/default/img/logo.png'>";?>
             <br/>
             <form id="mc_relogin" name="mc_relogin" class="narrow" onsubmit="Q.reauth();" action="/qruqsp-login.php" target="relogin_target" method="POST">
                 <div class="section">
