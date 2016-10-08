@@ -70,9 +70,9 @@ function qruqsp_core_callPublicMethod(&$q) {
     // methods are available, and they must be listed here.
     //
     $no_auth_methods = array(
-        'qruqsp.users.auth', 
-        'qruqsp.users.passwordRequestReset',
-        'qruqsp.users.changeTempPassword',
+        'qruqsp.core.auth', 
+        'qruqsp.core.passwordRequestReset',
+        'qruqsp.core.changeTempPassword',
         'qruqsp.core.echoTest', 
         'qruqsp.core.getAddressCountryCodes'
         );

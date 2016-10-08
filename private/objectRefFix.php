@@ -9,7 +9,7 @@
 // Arguments
 // ---------
 // qruqsp:
-// station_id:     The ID of the business the reference is for.
+// station_id:     The ID of the station the reference is for.
 //
 // args:            The arguments for adding the reference.
 //

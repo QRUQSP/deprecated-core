@@ -34,7 +34,7 @@ if( $rc['stat'] != 'ok' ) {
 //
 // Setup the $qruqsp variable to hold all things qruqsp.  
 //
-$q = $rc['qruqsp'];
+$q = $rc['q'];
 
 //
 // Ensure the connection is over SSL

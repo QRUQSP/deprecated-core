@@ -136,8 +136,8 @@ function qruqsp_core_objectAdd(&$q, $station_id, $obj_name, $args, $tmsupdate=0x
     // Update the last change date of the module
     //
     if( ($tmsupdate&0x02) == 2 ) {
-        qruqsp_core_loadMethod($q, 'qruqsp', 'businesses', 'private', 'updateModuleChangeDate');
-        qruqsp_businesses_updateModuleChangeDate($q, $station_id, $pkg, $mod);
+        qruqsp_core_loadMethod($q, 'qruqsp', 'core', 'private', 'updateModuleChangeDate');
+        qruqsp_core_updateModuleChangeDate($q, $station_id, $pkg, $mod);
     }
 
     //

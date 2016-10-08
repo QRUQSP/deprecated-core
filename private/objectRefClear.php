@@ -6,7 +6,7 @@
 // Arguments
 // ---------
 // qruqsp:
-// station_id:     The ID of the business the reference is for.
+// station_id:     The ID of the station the reference is for.
 //
 // args:            The arguments for adding the reference.
 //
@@ -84,11 +84,11 @@ function qruqsp_core_objectRefClear(&$q, $station_id, $obj_name, $args, $options
     }
 
     //
-    // Update the last_change date in the business modules
+    // Update the last_change date in the station modules
     // Ignore the result, as we don't want to stop user updates if this fails.
     //
-    qruqsp_core_loadMethod($q, 'qruqsp', 'businesses', 'private', 'updateModuleChangeDate');
-    qruqsp_businesses_updateModuleChangeDate($q, $station_id, $pkg, $mod);
+    qruqsp_core_loadMethod($q, 'qruqsp', 'core', 'private', 'updateModuleChangeDate');
+    qruqsp_core_updateModuleChangeDate($q, $station_id, $pkg, $mod);
 
     return array('stat'=>'ok');
 }

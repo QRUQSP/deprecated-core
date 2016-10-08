@@ -13,7 +13,7 @@
 // Returns
 // =======
 //  <tables>
-//      <table_name name='users' />
+//      <table_name name='qruqsp_core_users' />
 //  </tables>
 //
 function qruqsp_core_dbUpgradeTables(&$q) {

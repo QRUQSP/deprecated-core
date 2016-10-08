@@ -1,0 +1,11 @@
+table.list {
+    -moz-border-radius: 3px;
+}
+
+table.form {
+    box-shadow: none;
+}
+
+table.simplegrid {
+    -moz-border-radius: 3px;
+}

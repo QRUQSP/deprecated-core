@@ -132,8 +132,8 @@ function qruqsp_core_objectDelete(&$q, $station_id, $obj_name, $oid, $ouuid, $tm
     // Update the last change date of the module
     //
     if( ($tmsupdate&0x02) == 2 ) {
-        qruqsp_core_loadMethod($q, 'qruqsp', 'businesses', 'private', 'updateModuleChangeDate');
-        qruqsp_businesses_updateModuleChangeDate($q, $station_id, $pkg, $mod);
+        qruqsp_core_loadMethod($q, 'qruqsp', 'core', 'private', 'updateModuleChangeDate');
+        qruqsp_core_updateModuleChangeDate($q, $station_id, $pkg, $mod);
     }
 
     //

@@ -34,7 +34,7 @@ function qruqsp_core_checkSecureConnection(&$q) {
     // If the override has been set in the config, then don't worry about the check.
     // *note* This is good for testing, but should never be used in production
     //
-    if( isset($q['config']['core']['ssl']) && $qruqsp['config']['core']['ssl'] == 'off' ) {
+    if( isset($q['config']['core']['ssl']) && $q['config']['core']['ssl'] == 'off' ) {
         return array('stat'=>'ok');
     }
 

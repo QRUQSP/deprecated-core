@@ -34,8 +34,8 @@ function qruqsp_core_objectGet(&$q, $station_id, $obj_name, $oid) {
     $o = $rc['object'];
     $m = "$pkg.$mod";
 
-    qruqsp_core_loadMethod($q, 'qruqsp', 'businesses', 'private', 'intlSettings');
-    $rc = qruqsp_businesses_intlSettings($q, $station_id);
+    qruqsp_core_loadMethod($q, 'qruqsp', 'core', 'private', 'intlSettings');
+    $rc = qruqsp_core_intlSettings($q, $station_id);
     if( $rc['stat'] != 'ok' ) {
         return $rc;
     }
@@ -43,8 +43,8 @@ function qruqsp_core_objectGet(&$q, $station_id, $obj_name, $oid) {
 //  $intl_currency_fmt = numfmt_create($rc['settings']['intl-default-locale'], NumberFormatter::CURRENCY);
 //  $intl_currency = $rc['settings']['intl-default-currency'];
 
-    qruqsp_core_loadMethod($q, 'qruqsp', 'users', 'private', 'datetimeFormat');
-    $datetime_format = qruqsp_users_datetimeFormat($q, 'php');
+    qruqsp_core_loadMethod($q, 'qruqsp', 'core', 'private', 'datetimeFormat');
+    $datetime_format = qruqsp_core_datetimeFormat($q, 'php');
 
     // 
     // Build the query to get the object

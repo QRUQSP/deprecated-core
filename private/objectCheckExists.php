@@ -7,7 +7,7 @@
 // Arguments
 // ---------
 // qruqsp:
-// station_id:     The ID of the business.
+// station_id:      The ID of the station.
 // object:          The name of the object to check.
 // object_id:       The ID of the object to check for existence.
 //

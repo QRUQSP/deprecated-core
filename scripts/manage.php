@@ -46,7 +46,7 @@ if( preg_match('/^email=(.*)\&p=(.*)$/', $_SERVER['QUERY_STRING'], $matches) ) {
 }
 
 //
-// The business which stores the qruqsp-manage bugs
+// The station which stores the qruqsp-manage bugs
 //
 $master_id = $q['config']['qruqsp.core']['master_station_id'];
 
@@ -329,21 +329,15 @@ if( $device == 'ipad' && $engine == 'webkit' ) { ?>
 print "<link rel='icon' href='$manage_themes/default/img/favicon.png' type='image/png' />\n";
 
 //
-// Load the tinymce editor
-//
-print "<script type='text/javascript' src='$manage_js/tinymce/tinymce.min.js'></script>\n";
-//print "<script type='text/javascript'>tinymce.init({selector: 'textarea'});</script>\n";
-
-//
 // Check to see if a compile, minimized version exists
 //
 if( $minimized == 'yes' && file_exists("$themes_root/default/$device-$engine.min.css") ) {
     print "<link rel='stylesheet' type='text/css' href='$manage_themes/default/$device-$engine.min.css?ts=$ts' />\n";
-    // print "<link id='business_colours' rel='stylesheet' type='text/css' href='$manage_themes/default/colors.css' />\n";
+    // print "<link id='station_colours' rel='stylesheet' type='text/css' href='$manage_themes/default/colors.css' />\n";
 } else {
     // Include the basic stylesheet
     print "<link rel='stylesheet' type='text/css' href='$manage_themes/default/style.css?ts=$ts' />\n";
-    // print "<link id='business_colours' rel='stylesheet' type='text/css' href='$manage_themes/default/colors.css' />\n";
+    // print "<link id='station_colours' rel='stylesheet' type='text/css' href='$manage_themes/default/colors.css' />\n";
 
     //
     // Decide which stylesheets to include
@@ -365,12 +359,12 @@ if( $minimized == 'yes' && file_exists("$themes_root/default/$device-$engine.min
     }
 }
 //
-// Check for default business colours
+// Check for default station colours
 //
 if( file_exists("$themes_root/default/colors.css") ) {
-    print "<style id='business_colours' type='text/css'>" . file_get_contents("$themes_root/default/colors.css") . "</style>";
+    print "<style id='station_colours' type='text/css'>" . file_get_contents("$themes_root/default/colors.css") . "</style>";
 } else {
-    print "<style id='business_colours' type='text/css'></style>";
+    print "<style id='station_colours' type='text/css'></style>";
 }
 
 print "<link rel='stylesheet' type='text/css' href='$manage_themes/default/print.css' media='print' />\n";
@@ -400,15 +394,12 @@ if( $browser == 'unsupported' ) {
         'root_url'=>$config['qruqsp.core']['manage_root_url'],
         'themes_root_url'=>$config['qruqsp.core']['themes_root_url'],
         'start_menu'=>'qruqsp.core.menu',
-        'business_menu'=>'qruqsp.businesses.main',
+        'station_menu'=>'qruqsp.businesses.main',
         'modules'=>array(),
         );
     //
     // Check if submiting form authorized user
     //
-//    if( isset($_COOKIE['auth_token']) ) {
-//        $manage_config['auth_token'] = $_COOKIE['auth_token'];
-//    }
     if( isset($_POST['auth_token']) && $_POST['auth_token'] != '' ) {
         $manage_config['auth_token'] = $_POST['auth_token'];
     }
@@ -435,12 +426,12 @@ if( $browser == 'unsupported' ) {
     if( isset($config['qruqsp.core']['start_menu']) && $config['qruqsp.core']['start_menu'] != '' ) {
         $manage_config['start_menu'] = $config['qruqsp.core']['start_menu'];
     }
-    if( isset($config['qruqsp.core']['business_menu']) && $config['qruqsp.core']['business_menu'] != '' ) {
-        $manage_config['business_menu'] = $config['qruqsp.core']['business_menu'];
+    if( isset($config['qruqsp.core']['station_menu']) && $config['qruqsp.core']['station_menu'] != '' ) {
+        $manage_config['station_menu'] = $config['qruqsp.core']['station_menu'];
     }
     
 ?>
-<body id="m_body" onresize="M.resize();" onload='M.init(<?php print json_encode($manage_config);?>);'>
+<body id="m_body" onresize="Q.resize();" onload='Q.init(<?php print json_encode($manage_config);?>);'>
 <noscript>
 Javscript must be enabled for this application to work.
 </noscript>
@@ -452,18 +443,18 @@ Javscript must be enabled for this application to work.
 <?php } ?>
     <div id="mc_login">
         <div id="mcw_login" class="narrow">
-            <?php print "<img id='logo' class='logo' src='$manage_themes/default/img/logo_com.png'>";?>
+            <?php print "<img id='logo' class='logo' src='$manage_themes/default/img/logo.png'>";?>
             <br/>
             <iframe src="/qruqsp-login.php" id="login_target" name="login_target" style="display:none;"></iframe>
-            <form id="mc_login_form" name="mc_login_form" class="narrow" action="/qruqsp-login.php" onsubmit="M.auth();" target="login_target" method="POST">
+            <form id="mc_login_form" name="mc_login_form" class="narrow" action="/qruqsp-login.php" onsubmit="Q.auth();" target="login_target" method="POST">
                 <div class="section">
                     <h2>Email or Username</h2>
                     <table class="list noheader form" cellspacing='0' cellpadding='0'>
-                        <tr class="textfield"><td class="input"><label style="display:none;" for="username">Email or Username</label><input id="username" type="text" maxlength="255" name="username"></td></tr>
+                        <tr class="textfield"><td class="input"><label style="display:none;" for="username">Email or Username</label><input id="username" type="text" maxlength="255" name="username" value="andrew"></td></tr>
                     </table>
                     <h2>Password</h2>
                     <table class="list noheader form" cellspacing='0' cellpadding='0'>
-                        <tr class="textfield"><td class="input"><label style="display:none;" for="password">Password</label><input id="password" type="password" maxlength="50" name="password"></td></tr>
+                        <tr class="textfield"><td class="input"><label style="display:none;" for="password">Password</label><input id="password" type="password" maxlength="50" name="password" value="veggie12"></td></tr>
                     </table>
 
                 </div>
@@ -472,7 +463,7 @@ Javscript must be enabled for this application to work.
                     <tr class='checkbox'>
                         <td class='checkbox'><input type="checkbox" id='rm' name='rm' value='yes' class='checkbox'/><label for='rm'>Remember me</label></td>
                         <td>
-                            <p class="right link"><a href="" onClick="M.hide('m_login'); M.show('m_forgot'); return false;">Forgot Password</a></p>
+                            <p class="right link"><a href="" onClick="Q.hide('m_login'); Q.show('m_forgot'); return false;">Forgot Password</a></p>
                         </td>
                     </tr>
                 </table>
@@ -489,7 +480,7 @@ Javscript must be enabled for this application to work.
         <div id="mc_content_wrap" class="narrow">
             <?php print "<img id='logo' class='logo' src='$manage_themes/default/img/logo_com.png'>";?>
             <br/>
-            <form id="mf_reset" name="mf_reset" class="narrow" onsubmit="M.pwdReset(); return false;" action="" method="POST">
+            <form id="mf_reset" name="mf_reset" class="narrow" onsubmit="Q.pwdReset(); return false;" action="" method="POST">
                 <div class="section">
                     <table class="list simplelist noheader border" cellspacing='0' cellpadding='0'>
                         <tr class="clickable"><td>Please enter your email address. You will receive a new temporary password by email.</td></tr>
@@ -502,9 +493,9 @@ Javscript must be enabled for this application to work.
                 <input type="submit" value="Get New Password" class="button"/>
                 <br/><br/>
 <?php if( $start_container == 'm_recover' ) { ?>
-                <p class="right link"><a href="" onClick="M.hide('m_forgot'); M.show('m_recover'); return false;">Cancel</a></p>
+                <p class="right link"><a href="" onClick="Q.hide('m_forgot'); Q.show('m_recover'); return false;">Cancel</a></p>
 <?php } else { ?>
-                <p class="right link"><a href="" onClick="M.hide('m_forgot'); M.show('m_login'); return false;">Cancel</a></p>
+                <p class="right link"><a href="" onClick="Q.hide('m_forgot'); Q.show('m_login'); return false;">Cancel</a></p>
 <?php } ?>
             </form>
         </div>
@@ -519,7 +510,7 @@ Javscript must be enabled for this application to work.
         <div id="mr_content_wrap" class="narrow">
             <?php print "<img id='logo' class='logo' src='$manage_themes/default/img/logo_com.png'>";?>
             <br/>
-            <form id="mr_reset" name="mr_reset" class="narrow" onsubmit="M.tempPassReset(); return false;" action="" method="POST">
+            <form id="mr_reset" name="mr_reset" class="narrow" onsubmit="Q.tempPassReset(); return false;" action="" method="POST">
                 <input type='hidden' id='temp_password' value='<?php echo $temp_password;?>'/>
                 <div class="section">
                     <table class="list simplelist noheader border" cellspacing='0' cellpadding='0'>
@@ -540,7 +531,7 @@ Javscript must be enabled for this application to work.
                 </div>
                 <input type="submit" value="Set Password" class="button"/>
                 <br/><br/>
-                <p class="right link"><a href="" onClick="M.hide('m_recover'); M.show('m_forgot'); return false;">Send New Activation</a></p>
+                <p class="right link"><a href="" onClick="Q.hide('m_recover'); Q.show('m_forgot'); return false;">Send New Activation</a></p>
             </form>
         </div>
     </div>
@@ -550,7 +541,7 @@ Javscript must be enabled for this application to work.
         <div id="mcw_relogin" class="narrow">
             <?php print "<img id='logo' class='logo' src='$manage_themes/default/img/logo_com.png'>";?>
             <br/>
-            <form id="mc_relogin" name="mc_relogin" class="narrow" onsubmit="M.reauth();" action="/qruqsp-login.php" target="relogin_target" method="POST">
+            <form id="mc_relogin" name="mc_relogin" class="narrow" onsubmit="Q.reauth();" action="/qruqsp-login.php" target="relogin_target" method="POST">
                 <div class="section">
                     <p><br/></p>
                     <p>Session expired, please enter your password to verify your account.</p>
@@ -567,7 +558,7 @@ Javscript must be enabled for this application to work.
                 </div>
                 <input type="submit" value="Verify" class="button"/>
                 <br/><br/>
-                <p class="right link"><a href="" onClick="M.reload(); return false;">Switch User</a></p>
+                <p class="right link"><a href="" onClick="Q.reload(); return false;">Switch User</a></p>
             </form>
             <iframe style="margin:0px;padding:0px;border:0px;display:block;width:0px;height:0px;" name="relogin_target" id="relogin_target"></iframe>
         </div>
@@ -591,8 +582,8 @@ Javscript must be enabled for this application to work.
             <p>If you don't understand why you encountered the error, please click the Submit Bug button.</p>
             <p><br/></p>
             <table width="100%" cellspacing="0" cellpadding="0">
-                <tr><td><input type="submit" value="Close" class="button" onclick="M.hide('m_error');"/></td>
-                <td style="text-align:right;"><input type="submit" value="Submit Bug" class="button" onclick="M.submitErrBug();"/></td></tr>
+                <tr><td><input type="submit" value="Close" class="button" onclick="Q.hide('m_error');"/></td>
+                <td style="text-align:right;"><input type="submit" value="Submit Bug" class="button" onclick="Q.submitErrBug();"/></td></tr>
             </table>
         </div>
     </div>
@@ -611,7 +602,7 @@ Javscript must be enabled for this application to work.
             </table>
             <p><br/></p>
             <table class="list simplebuttons noheader border">
-                <tr onclick="M.hide('m_alert');M.show('m_container');"><td class="button">Okay</td></tr>
+                <tr onclick="Q.hide('m_alert');Q.show('m_container');"><td class="button">Okay</td></tr>
             </table>
         </div>
     </div>
@@ -648,7 +639,7 @@ Javscript must be enabled for this application to work.
 <div id="m_website" style="display:none;overflow:hidden;">
 <table id="mw_header" class="headerbar" cellspacing="0" cellpadding="0">
     <tr>
-    <td id="mw_home_button" class="homebutton" onClick="M.showWebsite();"><div class="button home"><span class="faicon">&#xf060;</span><span class="label">Back</span></div></td>
+    <td id="mw_home_button" class="homebutton" onClick="Q.showWebsite();"><div class="button home"><span class="faicon">&#xf060;</span><span class="label">Back</span></div></td>
     <td id="mw_leftbuttons_0" class="leftbuttons hide"></td>
     <td id="mw_leftbuttons_1" class="leftbuttons hide"></td>
     <?php if( $size == 'compact' ) { ?>
@@ -666,7 +657,7 @@ Javscript must be enabled for this application to work.
 <div id="m_pdf" style="display:none;overflow:hidden;">
 <table id="mp_header" class="headerbar noprint" cellspacing="0" cellpadding="0">
     <tr>
-    <td id="mp_home_button" class="homebutton" onClick="M.showPDF();"><div class="button home"><span class="faicon">&#xf060;</span><span class="label">Back</span></div></td>
+    <td id="mp_home_button" class="homebutton" onClick="Q.showPDF();"><div class="button home"><span class="faicon">&#xf060;</span><span class="label">Back</span></div></td>
     <td id="mp_leftbuttons_0" class="leftbuttons hide"></td>
     <td id="mp_leftbuttons_1" class="leftbuttons hide"></td>
     <?php if( $size == 'compact' ) { ?>
@@ -676,10 +667,10 @@ Javscript must be enabled for this application to work.
     <?php } ?>
     <td id="mp_rightbuttons_1" class="rightbuttons hide"></td>
     <td id="mp_rightbuttons_0" class="rightbuttons hide"></td>
-    <td id="mp_print_button" class="rightbuttons" onClick="M.printPDF();"><div class="button home"><span class="faicon">&#xf02f;</span><span class="label">Print</span></div></td>
+    <td id="mp_print_button" class="rightbuttons" onClick="Q.printPDF();"><div class="button home"><span class="faicon">&#xf02f;</span><span class="label">Print</span></div></td>
     </tr>
 </table>
-<div id="mc_pdf"><div id="mc_content_wrap" class="medium"><p>Use two fingers to scroll</p></div><iframe id="mc_pdf_iframe" src="" width="100%" height="100%" marginwidth="0" marginheight="0" frameborder="no" scrolling="yes" onload="M.resize();"></iframe></div>
+<div id="mc_pdf"><div id="mc_content_wrap" class="medium"><p>Use two fingers to scroll</p></div><iframe id="mc_pdf_iframe" src="" width="100%" height="100%" marginwidth="0" marginheight="0" frameborder="no" scrolling="yes" onload="Q.resize();"></iframe></div>
 </div>
 <?php if( $start_container == 'm_container' ) { ?>
 <div id="m_container" class="s-<?php echo $size;?> help-off guided-off xhelp-off">
@@ -688,7 +679,7 @@ Javscript must be enabled for this application to work.
 <?php } ?>
     <table id="mc_header" class="headerbar" cellspacing="0" cellpadding="0">
         <tr>
-        <td id="mc_home_button" class="homebutton" onClick="M.home();"><div class="button home"><span class="faicon">&#xf015;</span><span class="label">Home</span></div></td>
+        <td id="mc_home_button" class="homebutton" onClick="Q.home();"><div class="button home"><span class="faicon">&#xf015;</span><span class="label">Home</span></div></td>
         <td id="mc_leftbuttons_0" class="leftbuttons hide"></td>
         <td id="mc_leftbuttons_1" class="leftbuttons hide"></td>
         <?php if( $size == 'compact' ) { ?>
@@ -700,7 +691,7 @@ Javscript must be enabled for this application to work.
         <?php } ?>
         <td id="mc_rightbuttons_1" class="rightbuttons hide"></td>
         <td id="mc_rightbuttons_0" class="rightbuttons hide"></td>
-        <td id="mc_help_button" class="helpbutton" onClick="M.toggleHelp(M.curHelpUID);"><div class="button help"><span class="faicon">&#xf128;</span><span class="label">Help</span></div></td>
+        <td id="mc_help_button" class="helpbutton" onClick="Q.toggleHelp(Q.curHelpUID);"><div class="button help"><span class="faicon">&#xf128;</span><span class="label">Help</span></div></td>
         </tr>
     </table>
     <?php if( $size == 'compact' ): ?>

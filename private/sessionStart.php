@@ -17,15 +17,15 @@ function qruqsp_core_sessionStart(&$q, $username, $password) {
     // End any currently active sessions
     //
     qruqsp_core_loadMethod($q, 'qruqsp', 'core', 'private', 'sessionEnd');
-    qruqsp_core_loadMethod($q, 'qruqsp', 'users', 'private', 'logAuthFailure');
-    qruqsp_core_loadMethod($q, 'qruqsp', 'users', 'private', 'logAuthSuccess');
+    qruqsp_core_loadMethod($q, 'qruqsp', 'core', 'private', 'logAuthFailure');
+    qruqsp_core_loadMethod($q, 'qruqsp', 'core', 'private', 'logAuthSuccess');
     qruqsp_core_sessionEnd($q);
 
     //
     // Verify api_key is specified
     //
     if( !isset($q['request']['api_key']) || $q['request']['api_key'] == '' ) {
-        qruqsp_users_logAuthFailure($q, $username, 'qruqsp.core.48');
+        qruqsp_core_logAuthFailure($q, $username, 'qruqsp.core.48');
         return array('stat'=>'fail', 'err'=>array('code'=>'qruqsp.core.48', 'msg'=>'No api_key specified'));
     }
 
@@ -33,7 +33,7 @@ function qruqsp_core_sessionStart(&$q, $username, $password) {
     // Check username and password were passed to function
     //
     if( $username == '' || $password == '' ) {
-        qruqsp_users_logAuthFailure($q, $username, 'qruqsp.core.57');
+        qruqsp_core_logAuthFailure($q, $username, 'qruqsp.core.57');
         return array('stat'=>'fail', 'err'=>array('code'=>'qruqsp.core.57', 'msg'=>'Invalid password'));
     }
 
@@ -44,16 +44,16 @@ function qruqsp_core_sessionStart(&$q, $username, $password) {
     // Make sure only select active users (status = 2)
     //
     $strsql = "SELECT id, email, username, avatar_id, perms, status, timeout, login_attempts, display_name "
-        . "FROM qruqsp_users "
+        . "FROM qruqsp_core_users "
         . "WHERE (email = '" . qruqsp_core_dbQuote($q, $username) . "' "
             . "OR username = '" . qruqsp_core_dbQuote($q, $username) . "') "
         . "AND password = SHA1('" . qruqsp_core_dbQuote($q, $password) . "') ";
 
     qruqsp_core_loadMethod($q, 'qruqsp', 'core', 'private', 'dbHashQuery');
     qruqsp_core_loadMethod($q, 'qruqsp', 'core', 'private', 'dbUpdate');
-    $rc = qruqsp_core_dbHashQuery($q, $strsql, 'qruqsp.users', 'user');
+    $rc = qruqsp_core_dbHashQuery($q, $strsql, 'qruqsp.core', 'user');
     if( $rc['stat'] != 'ok' ) {
-        qruqsp_users_logAuthFailure($q, $username, $rc['err']['code']);
+        qruqsp_core_logAuthFailure($q, $username, $rc['err']['code']);
         return $rc;
     }
 
@@ -61,52 +61,52 @@ function qruqsp_core_sessionStart(&$q, $username, $password) {
     // Perform an extra check to make sure only 1 row was found, other return error
     //
     if( $rc['num_rows'] != 1 ) {
-        qruqsp_users_logAuthFailure($q, $username, 'qruqsp.core.42');
+        qruqsp_core_logAuthFailure($q, $username, 'qruqsp.core.42');
         return array('stat'=>'fail', 'err'=>array('code'=>'qruqsp.core.42', 'msg'=>'Invalid password'));
     }
 
     if( !isset($rc['user']) ) {
-        qruqsp_users_logAuthFailure($q, $username, 'qruqsp.core.43');
+        qruqsp_core_logAuthFailure($q, $username, 'qruqsp.core.43');
         return array('stat'=>'fail', 'err'=>array('code'=>'qruqsp.core.43', 'msg'=>'Invalid password'));
     }
     if( $rc['user']['id'] <= 0 ) {
-        qruqsp_users_logAuthFailure($q, $username, 'qruqsp.core.44');
+        qruqsp_core_logAuthFailure($q, $username, 'qruqsp.core.44');
         return array('stat'=>'fail', 'err'=>array('code'=>'qruqsp.core.44', 'msg'=>'Invalid password'));
     }
     $user = $rc['user'];
 
     // Check if the account should be locked
     if( $user['login_attempts'] > 7 && $user['status'] < 10 ) {
-        $strsql = "UPDATE qruqsp_users SET status = 10 WHERE status = 1 AND id = '" . qruqsp_core_dbQuote($q, $rc['user']['id']) . "'";
+        $strsql = "UPDATE qruqsp_core_users SET status = 10 WHERE status = 1 AND id = '" . qruqsp_core_dbQuote($q, $rc['user']['id']) . "'";
         qruqsp_core_alertGenerate($q, 
             array('alert'=>'2', 'msg'=>'The account ' . $rc['user']['email'] . ' was locked.'));
-        qruqsp_core_dbUpdate($q, $strsql, 'qruqsp.users');
+        qruqsp_core_dbUpdate($q, $strsql, 'qruqsp.core');
         $user['status'] = 10;
     }
     // Check if the account is locked
     if( $user['status'] == 10 ) {
-        qruqsp_users_logAuthFailure($q, $username, 'qruqsp.core.45');
+        qruqsp_core_logAuthFailure($q, $username, 'qruqsp.core.45');
         return array('stat'=>'fail', 'err'=>array('code'=>'qruqsp.core.45', 'msg'=>'Account locked'));
     }
     
     // Check if the account is deleted
     if( $user['status'] == 11 ) {
-        qruqsp_users_logAuthFailure($q, $username, 'qruqsp.core.46');
+        qruqsp_core_logAuthFailure($q, $username, 'qruqsp.core.46');
         return array('stat'=>'fail', 'err'=>array('code'=>'qruqsp.core.46', 'msg'=>'Invalid password'));
     }
 
     // Check if the account is active
     if( $user['status'] < 1 || $user['status'] > 2 ) {
-        qruqsp_users_logAuthFailure($q, $username, 'qruqsp.core.47');
+        qruqsp_core_logAuthFailure($q, $username, 'qruqsp.core.47');
         return array('stat'=>'fail', 'err'=>array('code'=>'qruqsp.core.47', 'msg'=>'Invalid password'));
     }
 
     unset($user['login_attempts']);
 
     qruqsp_core_loadMethod($q, 'qruqsp', 'core', 'private', 'dbDetailsQueryHash');
-    $rc = qruqsp_core_dbDetailsQueryHash($q, 'qruqsp_user_details', 'user_id', $user['id'], 'settings', 'qruqsp.users');
+    $rc = qruqsp_core_dbDetailsQueryHash($q, 'qruqsp_core_user_details', 'user_id', $user['id'], 'settings', 'qruqsp.core');
     if( $rc['stat'] != 'ok' ) {
-        qruqsp_users_logAuthFailure($q, $username, $rc['err']['code']);
+        qruqsp_core_logAuthFailure($q, $username, $rc['err']['code']);
         return $rc;
     }
     if( isset($rc['details']['settings']) && $rc['details']['settings'] != null ) {
@@ -156,17 +156,17 @@ function qruqsp_core_sessionStart(&$q, $username, $password) {
     qruqsp_core_loadMethod($q, 'qruqsp', 'core', 'private', 'dbInsert');
     $rc = qruqsp_core_dbInsert($q, $strsql, 'qruqsp.core');
     if( $rc['stat'] != 'ok' ) {
-        qruqsp_users_logAuthFailure($q, $username, $rc['err']['code']);
+        qruqsp_core_logAuthFailure($q, $username, $rc['err']['code']);
         return $rc;
     }
 
     //
     // Update the last_login field for the user, and reset the login_attempts field.
     //
-    $strsql = "UPDATE qruqsp_users SET login_attempts = 0, last_login = UTC_TIMESTAMP() WHERE id = '" . qruqsp_core_dbQuote($q, $user['id']) . "'";
-    $rc = qruqsp_core_dbUpdate($q, $strsql, 'qruqsp.users');
+    $strsql = "UPDATE qruqsp_core_users SET login_attempts = 0, last_login = UTC_TIMESTAMP() WHERE id = '" . qruqsp_core_dbQuote($q, $user['id']) . "'";
+    $rc = qruqsp_core_dbUpdate($q, $strsql, 'qruqsp.core');
     if( $rc['stat'] != 'ok' ) {
-        qruqsp_users_logAuthFailure($q, $username, $rc['err']['code']);
+        qruqsp_core_logAuthFailure($q, $username, $rc['err']['code']);
         return $rc;
     }
 
@@ -174,7 +174,7 @@ function qruqsp_core_sessionStart(&$q, $username, $password) {
     // FIXME: Check for primary key violation, and choose new key
     //
     
-    qruqsp_users_logAuthSuccess($q);
+    qruqsp_core_logAuthSuccess($q);
 
     $version_file = $q['config']['qruqsp.core']['root_dir'] . "/_versions.ini";
     if( is_file($version_file) ) {

@@ -24,6 +24,6 @@ function qruqsp_core_printResponse($q, $hash) {
     header("Content-Type: text/plain; charset=utf-8");
     header("Cache-Control: no-cache, must-revalidate");
     qruqsp_core_loadMethod($q, 'qruqsp', 'core', 'private', 'printHashToJSON');
-    json_encode($hash);
+    qruqsp_core_printHashToJSON($hash);
 }
 ?>
