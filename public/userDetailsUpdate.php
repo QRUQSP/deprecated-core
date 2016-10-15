@@ -108,7 +108,7 @@ function qruqsp_core_userDetailsUpdate(&$q) {
     // Update session values
     //
     qruqsp_core_loadMethod($q, 'qruqsp', 'core', 'private', 'dbDetailsQueryDash');
-    $rc = qruqsp_core_dbDetailsQueryDash($q, 'qruqsp_core_user_details', 'user_id', $user['id'], 'qruqsp.core', 'settings', 'settings');
+    $rc = qruqsp_core_dbDetailsQueryDash($q, 'qruqsp_core_user_details', 'user_id', $q['session']['user']['id'], 'qruqsp.core', 'settings', 'settings');
     if( $rc['stat'] != 'ok' ) {
         qruqsp_core_logAuthFailure($q, $selector, $rc['err']['code']);
         return $rc;
