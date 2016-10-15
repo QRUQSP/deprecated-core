@@ -6,10 +6,6 @@
 // to be used for future API calls.  Either a username or 
 // email address can be used to authenticate.
 //
-// Info
-// ----
-// publish:         yes
-//
 // Arguments
 // ---------
 // api_key:
@@ -21,12 +17,6 @@
 //                  in the database.
 //
 // password:        The password to be checked with the username.
-//
-// Example Return
-// --------------
-// <rsp stat="ok" station="3">
-//      <auth token="0123456789abcdef0123456789abcdef" id="42" perms="1" avatar_id="192" />
-// </rsp>
 //
 function qruqsp_core_auth(&$q) {
     if( (!isset($q['request']['args']['username'])

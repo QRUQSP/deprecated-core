@@ -393,8 +393,7 @@ if( $browser == 'unsupported' ) {
         'master_id'=>$master_id,
         'root_url'=>$config['qruqsp.core']['manage_root_url'],
         'themes_root_url'=>$config['qruqsp.core']['themes_root_url'],
-        'start_menu'=>'qruqsp.core.menu',
-        'station_menu'=>'qruqsp.businesses.main',
+        'start_menu'=>'qruqsp.core.main',
         'modules'=>array(),
         );
     //

@@ -11,9 +11,6 @@
 // user_id:             The ID of the user to get the details for.
 // keys:                The comma delimited list of keys to lookup values for.
 //
-// Returns
-// -------
-//
 function qruqsp_core_userDetails($q) {
     //
     // Find all the required and optional arguments

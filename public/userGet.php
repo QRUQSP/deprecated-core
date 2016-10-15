@@ -4,18 +4,11 @@
 // -----------
 // This method will get the details for a user.
 //
-// Info
-// ----
-// publish:         yes
-//
 // Arguments
 // ---------
 // api_key:
 // auth_token:
 // user_id:             The ID of the user to get the details for.
-//
-// Returns
-// -------
 //
 function qruqsp_core_userGet($q) {
     //

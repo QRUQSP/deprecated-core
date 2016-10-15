@@ -104,13 +104,11 @@ function qruqsp_core_sessionTokenStart(&$q, $selector, $token) {
     unset($user['login_attempts']);
 
     qruqsp_core_loadMethod($q, 'qruqsp', 'core', 'private', 'dbDetailsQueryDash');
-    // $rc = qruqsp_core_dbDetailsQueryHash($q, 'qruqsp_core_user_details', 'user_id', $user['id'], 'settings', 'qruqsp.core');
     $rc = qruqsp_core_dbDetailsQueryDash($q, 'qruqsp_core_user_details', 'user_id', $user['id'], 'qruqsp.core', 'settings', 'settings');
     if( $rc['stat'] != 'ok' ) {
         qruqsp_core_logAuthFailure($q, $selector, $rc['err']['code']);
         return $rc;
     }
-    error_log(print_r($rc, true));
     if( isset($rc['details']['settings']) && $rc['details']['settings'] != null ) {
         $user['settings'] = $rc['details']['settings'];
     }

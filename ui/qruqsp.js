@@ -97,12 +97,10 @@ Q.preLoad = function(s) {
 }
 
 Q.home = function() {
-    if( Q.curHelpUID == 'qruqsp.stations.main.menu' || Q.curHelpUID == 'qruqsp.core.menu.stations' ) {
-        if( Q.qruqsp_core_menu.stations != null ) {
-            Q.qruqsp_core_menu.stations.show();
-        }
+    if( Q.curHelpUID == 'qruqsp.core.main.stations' || Q.curHelpUID == 'qruqsp.core.main.station' ) {
+        Q.qruqsp_core_main.stations.show(null);
     } else {
-        Q.menuHome.show();
+        Q.qruqsp_core_main.station.reopen();
     }
 }
 

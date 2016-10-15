@@ -49,7 +49,7 @@ function qruqsp_core_dbDetailsQueryHash(&$q, $table, $key, $key_value, $detail_k
     // Build array of rows
     //
     while( $row = mysqli_fetch_row($result) ) {
-        $split_key = preg_split('/\./', $row[0]);
+        $split_key = preg_split('/\-/', $row[0]);
         $cur_key = &$rsp['details'];
         for($i=0;$i<count($split_key)-1;$i++) {
             if( !isset($cur_key[$split_key[$i]]) ) {

@@ -4,10 +4,6 @@
 // -----------
 // This method will update details for a user.
 //
-// Info
-// ----
-// publish:         yes
-//
 // Arguments
 // ---------
 // api_key:
@@ -15,10 +11,6 @@
 // user_id:                 The ID of the user to update the details for.
 // user.callsign:           (optional) The new callsign for the user.
 // user.display_name:       (optional) The new display_name for the user.
-//
-// Returns
-// -------
-// <rsp stat='ok' />
 //
 function qruqsp_core_userDetailsUpdate(&$q) {
     //
@@ -115,10 +107,10 @@ function qruqsp_core_userDetailsUpdate(&$q) {
     //
     // Update session values
     //
-    qruqsp_core_loadMethod($q, 'qruqsp', 'core', 'private', 'dbDetailsQueryHash');
-    $rc = qruqsp_core_dbDetailsQueryHash($q, 'qruqsp_core_user_details', 'user_id', $q['session']['user']['id'], 'settings', 'qruqsp.core');
+    qruqsp_core_loadMethod($q, 'qruqsp', 'core', 'private', 'dbDetailsQueryDash');
+    $rc = qruqsp_core_dbDetailsQueryDash($q, 'qruqsp_core_user_details', 'user_id', $user['id'], 'qruqsp.core', 'settings', 'settings');
     if( $rc['stat'] != 'ok' ) {
-        qruqsp_core_dbTransactionRollback($q, 'qruqsp.core');
+        qruqsp_core_logAuthFailure($q, $selector, $rc['err']['code']);
         return $rc;
     }
     if( isset($rc['details']['settings']) && $rc['details']['settings'] != null ) {

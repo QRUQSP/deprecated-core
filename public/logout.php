@@ -7,9 +7,6 @@
 // Arguments
 // ---------
 //
-// Example Return
-// --------------
-//
 function qruqsp_core_logout($q) {
     //
     // Check access 

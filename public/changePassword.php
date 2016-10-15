@@ -5,10 +5,6 @@
 // This method will change a users password.  The user must provide their old password
 // as verification to change to a new password.
 //
-// Info
-// ----
-// publish:         yes
-//
 // Arguments
 // ---------
 // api_key:
@@ -18,10 +14,6 @@
 //                  if somebody hijacks the session, they can't change the password.
 //
 // newpassword:     The new password for the user.
-//
-// Returns
-// -------
-// <stat='ok' />
 //
 function qruqsp_core_changePassword($q) {
     //

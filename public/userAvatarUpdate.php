@@ -5,10 +5,6 @@
 // This method will set the avatar image ID for a user.  The image
 // must already exist in the qruqsp images module.
 //
-// Info
-// ----
-// publish:         yes
-//
 // Arguments
 // ---------
 // api_key:
@@ -16,10 +12,6 @@
 // user_id:         The ID of the user to update the avatar image ID.
 // image_id:        The ID of the image from the qruqsp images module to set as the users avatar.
 // 
-// Example Return
-// --------------
-// <rsp stat="ok" avatar_id="4" />
-//
 function qruqsp_core_userAvatarUpdate(&$q) {
     //
     // Check args
@@ -108,7 +100,7 @@ function qruqsp_core_userAvatarUpdate(&$q) {
     //
     $rc = qruqsp_core_dbTransactionCommit($q, 'qruqsp.core');
     if( $rc['stat'] != 'ok' ) {
-        return array('stat'=>'fail', 'err'=>array('pkg'=>'qruqsp', 'code'=>'441', 'msg'=>'Unable to save avatar', 'err'=>$rc['err']));
+        return array('stat'=>'fail', 'err'=>array('code'=>'qruqsp.core.129', 'msg'=>'Unable to save avatar', 'err'=>$rc['err']));
     }
 
     return array('stat'=>'ok', 'avatar_id'=>$args['image_id']);

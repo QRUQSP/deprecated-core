@@ -13,9 +13,6 @@
 // user_id:                 The user ID to get the history detail for.
 // field:                   The detail key to get the history for.
 //
-// Returns
-// -------
-//
 function qruqsp_core_userDetailHistory($q) {
     //
     // Find all the required and optional arguments

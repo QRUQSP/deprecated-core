@@ -46,6 +46,8 @@ function qruqsp_core_checkAccess($q, $station_id, $method) {
         'qruqsp.core.parseDate',
         'qruqsp.core.logout',
         'qruqsp.core.changePassword',
+        'qruqsp.core.userStations',
+        'qruqsp.core.userStationSettings',
         );
     if( in_array($method, $public_methods) ) {
         return array('stat'=>'ok');

@@ -9,9 +9,6 @@
 // ---------
 // api_key:         
 //
-// Returns
-// -------
-//
 function qruqsp_core_echoTest($q) {
     //
     // Check access restrictions to checkAPIKey

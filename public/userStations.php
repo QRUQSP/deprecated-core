@@ -4,17 +4,10 @@
 // -----------
 // This function will return the list of stations which the user has access to.
 //
-// Info
-// ----
-// Status: beta
-//
 // Arguments
 // ---------
 // api_key:
 // auth_token:
-//
-// Returns
-// -------
 //
 function qruqsp_core_userStations($q) {
     //
@@ -32,6 +25,7 @@ function qruqsp_core_userStations($q) {
     // Link to the station_users table to grab the groups the user belongs to for that station.
     //
     qruqsp_core_loadMethod($q, 'qruqsp', 'core', 'private', 'dbQuote');
+    qruqsp_core_loadMethod($q, 'qruqsp', 'core', 'private', 'dbHashQueryArrayTree');
     if( ($q['session']['user']['perms'] & 0x01) == 0x01 ) {
         //
         // Check if there is a debug file of action to do on login
@@ -46,17 +40,18 @@ function qruqsp_core_userStations($q) {
             . "FROM qruqsp_core_stations "
             . "ORDER BY category, qruqsp_core_stations.status, qruqsp_core_stations.name "
             . "";
-        qruqsp_core_loadMethod($q, 'qruqsp', 'core', 'private', 'dbHashQueryArrayTree');
         $rc = qruqsp_core_dbHashQueryArrayTree($q, $strsql, 'qruqsp.core', array(
             array('container'=>'categories', 'fname'=>'category', 'fields'=>array('name'=>'category')),
             array('container'=>'stations', 'fname'=>'id', 'fields'=>array('id', 'name')),
             ));
+        if( $rc['stat'] != 'ok' ) {
+            return $rc;
+        }
+        $rsp = $rc;
 
         if( isset($login_actions) && $login_actions != '' ) {
-            $rc['loginActions'] = $login_actions;
+            $rsp['loginActions'] = $login_actions;
         }
-
-        return $rc;
     } else {
         $strsql = "SELECT DISTINCT qruqsp_core_stations.id, "
             . "qruqsp_core_stations.name "
@@ -66,12 +61,36 @@ function qruqsp_core_userStations($q) {
             . "AND qruqsp_core_station_users.station_id = qruqsp_core_stations.id "
             . "AND qruqsp_core_stations.status < 60 "  // Allow suspended stations to be listed, so user can login and update billing/unsuspend
             . "ORDER BY qruqsp_core_stations.name ";
+        $rc = qruqsp_core_dbHashQueryArrayTree($q, $strsql, 'qruqsp.stations', array(
+            array('container'=>'stations', 'fname'=>'id', 'fields'=>array('id', 'name')),
+            ));
+        if( $rc['stat'] != 'ok' ) {
+            return $rc;
+        }
+        $rsp = $rc;
     }
 
-    qruqsp_core_loadMethod($q, 'qruqsp', 'core', 'private', 'dbHashQueryArrayTree');
-    $rc = qruqsp_core_dbHashQueryArrayTree($q, $strsql, 'qruqsp.stations', array(
-        array('container'=>'stations', 'fname'=>'id', 'fields'=>array('id', 'name')),
-        ));
-    return $rc;
+    //
+    // Check if only one station, and open it
+    //
+    $station_id = 0;
+    if( isset($rsp['stations']) && count($rsp['stations']) == 1 ) {
+        $station_id = $rsp['stations'][0]['id'];
+    } elseif( isset($q['request']['args']['station_id']) && $q['request']['args']['station_id'] > 0 ) {
+        $station_id = $q['request']['args']['station_id'];
+    }
+
+    //
+    // Check if there was a station specified, and load that information
+    //
+    if( $station_id > 0 ) {
+        qruqsp_core_loadMethod($q, 'qruqsp', 'core', 'public', 'userStationSettings');
+        $rc = qruqsp_core_userStationSettings($q);
+        if( isset($rc['station']) ) {
+            $rsp['station'] = $rc['station'];    
+        }
+    }
+
+    return $rsp;
 }
 ?>
