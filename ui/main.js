@@ -111,11 +111,11 @@ function qruqsp_core_main() {
     }
     this.stations.addLeftButton('logout', 'Logout', 'Q.logout();');
     if( Q.userID > 0 && (Q.userPerms&0x01) == 0x01 ) {
-        this.stations.addLeftButton('bigboard', 'bigboard', 'Q.startApp(\'qruqsp.sysadmin.bigboard\',null,\'Q.qruqsp_core_main.stations.show();\');');
+        this.stations.addLeftButton('bigboard', 'bigboard', 'Q.startApp(\'qruqsp.admin.bigboard\',null,\'Q.qruqsp_core_main.stations.show();\');');
     }
     this.stations.addButton('account', 'Account', 'Q.startApp(\'qruqsp.core.account\',null,\'Q.qruqsp_core_main.stations.show();\');');
     if( Q.userID > 0 && (Q.userPerms&0x01) == 0x01 ) {
-        this.stations.addButton('admin', 'Admin', 'Q.startApp(\'qruqsp.sysadmin.main\',null,\'Q.qruqsp_core_main.stations.show();\');');
+        this.stations.addButton('admin', 'Admin', 'Q.startApp(\'qruqsp.admin.main\',null,\'Q.qruqsp_core_main.stations.show();\');');
     }
 
     //
@@ -216,7 +216,7 @@ function qruqsp_core_main() {
             if( cb == null ) {
                 this.addButton('account', 'Account', 'Q.startApp(\'qruqsp.core.account\',null,\'Q.qruqsp_core_main.station.reopen();\');');
                 if( Q.userID > 0 && (Q.userPerms&0x01) == 0x01 ) {
-                    this.addLeftButton('admin', 'Admin', 'Q.startApp(\'qruqsp.sysadmin.main\',null,\'Q.qruqsp_core_main.station.reopen();\');');
+                    this.addLeftButton('admin', 'Admin', 'Q.startApp(\'qruqsp.admin.main\',null,\'Q.qruqsp_core_main.station.reopen();\');');
                 }
             } else {
                 this.addClose('Back');
@@ -262,7 +262,7 @@ function qruqsp_core_main() {
         }
 
         //
-        // If sysadmin, or business owner
+        // If admin, or business owner
         //
         if( Q.userID > 0 && ( (Q.userPerms&0x01) == 0x01 || Q.curBusiness.permissions.operator != null )) {
             p.addButton('settings', 'Settings', 'Q.startApp(\'qruqsp.core.settings\',null,\'M.qruqsp_core_main.station.reopen();\');');
