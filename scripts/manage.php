@@ -449,11 +449,11 @@ Javscript must be enabled for this application to work.
                 <div class="section">
                     <h2>Email or Username</h2>
                     <table class="list noheader form" cellspacing='0' cellpadding='0'>
-                        <tr class="textfield"><td class="input"><label style="display:none;" for="username">Email or Username</label><input id="username" type="text" maxlength="255" name="username" value="andrew"></td></tr>
+                        <tr class="textfield"><td class="input"><label style="display:none;" for="username">Email or Username</label><input id="username" type="text" maxlength="255" name="username" value=""></td></tr>
                     </table>
                     <h2>Password</h2>
                     <table class="list noheader form" cellspacing='0' cellpadding='0'>
-                        <tr class="textfield"><td class="input"><label style="display:none;" for="password">Password</label><input id="password" type="password" maxlength="50" name="password" value="veggie12"></td></tr>
+                        <tr class="textfield"><td class="input"><label style="display:none;" for="password">Password</label><input id="password" type="password" maxlength="50" name="password" value=""></td></tr>
                     </table>
 
                 </div>
