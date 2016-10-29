@@ -23,9 +23,6 @@ function qruqsp_core_checkModuleAccess(&$q, $station_id, $args) {
     if( !isset($args['module']) ) {
         return array('stat'=>'fail', 'err'=>array('code'=>'qruqsp.core.2', 'msg'=>'Internal Error'));
     }
-    if( !isset($args['groups']) || !is_array($args['groups']) || count($args['groups']) < 1 ) {
-        return array('stat'=>'fail', 'err'=>array('code'=>'qruqsp.core.3', 'msg'=>'Internal Error'));
-    }
     $package = $args['package'];
     $module = $args['module'];
 
@@ -36,7 +33,7 @@ function qruqsp_core_checkModuleAccess(&$q, $station_id, $args) {
         . "qruqsp_core_station_modules.status AS module_status, "
         . "qruqsp_core_station_modules.package, qruqsp_core_station_modules.module, "
         . "CONCAT_WS('.', qruqsp_core_station_modules.package, qruqsp_core_station_modules.module) AS module_id, "
-        . "flags, (flags&0xFFFFFFFF00000000)>>32 as flags2, "
+        . "flags, (flags&0xFFFFFFFF00000000)>>32 as flags2 "
         . "FROM qruqsp_core_stations, qruqsp_core_station_modules "
         . "WHERE qruqsp_core_stations.id = '" . qruqsp_core_dbQuote($q, $station_id) . "' "
         . "AND qruqsp_core_stations.id = qruqsp_core_station_modules.station_id "
@@ -84,7 +81,7 @@ function qruqsp_core_checkModuleAccess(&$q, $station_id, $args) {
     //
     // Check if the user is a sysadmin and if sysadmins are ok
     //
-    if( isset($args['sysadmins']) && $args['sysadmins'] == 'yes' && ($q['session']['user']['perms']&0x01) == 0x01 ) {
+    if( ($q['session']['user']['perms']&0x01) == 0x01 ) {
         return array('stat'=>'ok');
     }
 
