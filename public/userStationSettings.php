@@ -38,7 +38,6 @@ function qruqsp_core_userStationSettings($q) {
         return $rc;
     }
 
-
     //
     // Setup the default return array
     //
@@ -66,6 +65,7 @@ function qruqsp_core_userStationSettings($q) {
         return $rc;
     }
     $rsp['station']['permissions'] = $rc['permissions'];
+    $q['station']['permissions'] = $rc['permissions'];
 
     //
     // Get the station name, and CSS
@@ -98,6 +98,7 @@ function qruqsp_core_userStationSettings($q) {
     }
     if( isset($rc['modules']) ) {
         $rsp['station']['modules'] = $rc['modules'];
+        $q['station']['modules'] = $rc['modules'];
         foreach($rsp['station']['modules'] as $mid => $module) {
             //
             // Check for uiSettings in other modules
@@ -105,7 +106,7 @@ function qruqsp_core_userStationSettings($q) {
             $rc = qruqsp_core_loadMethod($q, $module['package'], $module['module'], 'hooks', 'uiSettings');
             if( $rc['stat'] == 'ok' ) {
                 $fn = $rc['function_call'];
-                $rc = $fn($q, $args['station_id'], array('modules'=>$mrc['modules'], 'permissions'=>$rsp['station']['permissions']));
+                $rc = $fn($q, $args['station_id'], array());
                 if( $rc['stat'] != 'ok' ) {
                     return $rc;
                 }

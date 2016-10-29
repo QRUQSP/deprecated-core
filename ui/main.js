@@ -265,7 +265,7 @@ function qruqsp_core_main() {
         // If admin, or business owner
         //
         if( Q.userID > 0 && ( (Q.userPerms&0x01) == 0x01 || Q.curBusiness.permissions.operator != null )) {
-            p.addButton('settings', 'Settings', 'Q.startApp(\'qruqsp.core.settings\',null,\'M.qruqsp_core_main.station.reopen();\');');
+            p.addButton('settings', 'Settings', 'Q.startApp(\'qruqsp.core.settings\',null,\'Q.qruqsp_core_main.station.reopen();\');');
         }
 
         var c = 0;
@@ -276,46 +276,46 @@ function qruqsp_core_main() {
         //
         // Build the main menu from the items supplied
         //
-        if( rsp.menu_items != null ) {
+        if( rsp.station.menu_items != null ) {
             // Get the number of search items
-            for(var i in rsp.menu_items) {
-                if( rsp.menu_items[i].search != null ) {
+            for(var i in rsp.station.menu_items) {
+                if( rsp.station.menu_items[i].search != null ) {
                     menu_search++
                 }
             }
             if( menu_search < 2 ) {
                 menu_search = 0;
             }
-            for(var i in rsp.menu_items) {
-                var item = {'label':rsp.menu_items[i].label};
-                if( rsp.menu_items[i].edit != null ) {
+            for(var i in rsp.station.menu_items) {
+                var item = {'label':rsp.station.menu_items[i].label};
+                if( rsp.station.menu_items[i].edit != null ) {
                     var args = '';
-                    if( rsp.menu_items[i].edit.args != null ) {
-                        for(var j in rsp.menu_items[i].edit.args) {
-                            args += (args != '' ? ', ':'') + '\'' + j + '\':' + eval(rsp.menu_items[i].edit.args[j]);
+                    if( rsp.station.menu_items[i].edit.args != null ) {
+                        for(var j in rsp.station.menu_items[i].edit.args) {
+                            args += (args != '' ? ', ':'') + '\'' + j + '\':' + eval(rsp.station.menu_items[i].edit.args[j]);
                         }
-                        item.fn = 'M.startApp(\'' + rsp.menu_items[i].edit.app + '\',null,\'M.qruqsp_core_main.station.reopen();\',\'mc\',{' + args + '});';
+                        item.fn = 'Q.startApp(\'' + rsp.station.menu_items[i].edit.app + '\',null,\'Q.qruqsp_core_main.station.reopen();\',\'mc\',{' + args + '});';
                     } else {
-                        item.fn = 'M.startApp(\'' + rsp.menu_items[i].edit.app + '\',null,\'M.qruqsp_core_main.station.reopen();\');';
+                        item.fn = 'Q.startApp(\'' + rsp.station.menu_items[i].edit.app + '\',null,\'Q.qruqsp_core_main.station.reopen();\');';
                     }
-                } else if( rsp.menu_items[i].fn != null ) {
-                    item.fn = rsp.menu_items[i].fn;
+                } else if( rsp.station.menu_items[i].fn != null ) {
+                    item.fn = rsp.station.menu_items[i].fn;
                 }
-                if( rsp.menu_items[i].count != null ) {
-                    item.count = rsp.menu_items[i].count;
+                if( rsp.station.menu_items[i].count != null ) {
+                    item.count = rsp.station.menu_items[i].count;
                 }
-                if( rsp.menu_items[i].add != null && menu_search > 0 ) {
+                if( rsp.station.menu_items[i].add != null && menu_search > 0 ) {
                     var args = '';
-                    for(var j in rsp.menu_items[i].add.args) {
-                        args += (args != '' ? ', ':'') + '\'' + j + '\':' + eval(rsp.menu_items[i].add.args[j]);
+                    for(var j in rsp.station.menu_items[i].add.args) {
+                        args += (args != '' ? ', ':'') + '\'' + j + '\':' + eval(rsp.station.menu_items[i].add.args[j]);
                     }
-                    item.addFn = 'M.startApp(\'' + rsp.menu_items[i].add.app + '\',null,\'M.qruqsp_core_main.station.reopen();\',\'mc\',{' + args + '});';
+                    item.addFn = 'Q.startApp(\'' + rsp.station.menu_items[i].add.app + '\',null,\'Q.qruqsp_core_main.station.reopen();\',\'mc\',{' + args + '});';
                 }
 
-                if( rsp.menu_items[i].search != null && menu_search > 0 ) {
-                    item.search = rsp.menu_items[i].search;
-                    if( rsp.menu_items[i].id != null ) {
-                        item.id = rsp.menu_items[i].id;
+                if( rsp.station.menu_items[i].search != null && menu_search > 0 ) {
+                    item.search = rsp.station.menu_items[i].search;
+                    if( rsp.station.menu_items[i].id != null ) {
+                        item.id = rsp.station.menu_items[i].id;
                     }
                     item.type = 'livesearchgrid';
                     item.searchlabel = item.label;
@@ -326,21 +326,21 @@ function qruqsp_core_main() {
                     if( item.search.headerValues != null ) {
                         item.headerValues = item.search.headerValues;
                     }
-                    if( rsp.menu_items[i].search.searchtype != null && rsp.menu_items[i].search.searchtype != '' ) {
-                        item.livesearchtype = rsp.menu_items[i].search.searchtype;
+                    if( rsp.station.menu_items[i].search.searchtype != null && rsp.station.menu_items[i].search.searchtype != '' ) {
+                        item.livesearchtype = rsp.station.menu_items[i].search.searchtype;
                     }
                     p.sections[c++] = item;
                     menu_search = 1;
                 }
-                else if( rsp.menu_items[i].subitems != null ) {
+                else if( rsp.station.menu_items[i].subitems != null ) {
                     item.aside = 'yes';
                     item.list = {};
-                    for(var j in rsp.menu_items[i].subitems) {
+                    for(var j in rsp.station.menu_items[i].subitems) {
                         var args = '';
-                        for(var k in rsp.menu_items[i].subitems[j].edit.args) {
-                            args += (args != '' ? ', ':'') + '\'' + k + '\':' + eval(rsp.menu_items[i].subitems[j].edit.args[k]);
+                        for(var k in rsp.station.menu_items[i].subitems[j].edit.args) {
+                            args += (args != '' ? ', ':'') + '\'' + k + '\':' + eval(rsp.station.menu_items[i].subitems[j].edit.args[k]);
                         }
-                        item.list[j] = {'label':rsp.menu_items[i].subitems[j].label, 'fn':'M.startApp(\'' + rsp.menu_items[i].subitems[j].edit.app + '\',null,\'M.qruqsp_core_main.station.reopen();\',\'mc\',{' + args + '});'};
+                        item.list[j] = {'label':rsp.station.menu_items[i].subitems[j].label, 'fn':'Q.startApp(\'' + rsp.station.menu_items[i].subitems[j].edit.app + '\',null,\'Q.qruqsp_core_main.station.reopen();\',\'mc\',{' + args + '});'};
                     }
                     p.sections[c] = item;
                     menu_search = 0;
