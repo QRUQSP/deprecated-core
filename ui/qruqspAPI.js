@@ -700,8 +700,8 @@ Q.api.expired = function(r) {
             Q.userID = 0;
             Q.userPerms = 0;
             Q.logout();
-            Q.businesses = null;
-            Q.curBusinessID = 0;
+            Q.stations = null;
+            Q.curStationID = 0;
             Q.reload();
         } else {
             Q.show('m_relogin');

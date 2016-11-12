@@ -2565,7 +2565,7 @@ Q.panel.prototype.createSimpleList = function(si, l, as) {
         // Check if click tracker is turned on
         var cltr = '';
         if( Q.curBusiness != null && Q.curBusiness.modules['qruqsp.clicktracker'] != null ) {
-            cltr = 'Q.api.getBg(\'qruqsp.clicktracker.add\', {\'business_id\':Q.curBusinessID, \'panel_id\':\'' + this.panelID + '\', \'item\':\'' + cltrl.replace(/ <span .*/, '') + '\'});';
+            cltr = 'Q.api.getBg(\'qruqsp.clicktracker.add\', {\'station_id\':Q.curStationID, \'panel_id\':\'' + this.panelID + '\', \'item\':\'' + cltrl.replace(/ <span .*/, '') + '\'});';
         }
         if( fn != null ) {
             var c = Q.aE('td', null, 'buttons');
@@ -3184,7 +3184,7 @@ Q.panel.prototype.createImageControls = function(i, field, img_id) {
         // Show download button
         if( field.controls == 'all' ) {
             var btn = Q.aE('span', null, 'toggle_off', '<span class="icon">G</span>');
-            btn.setAttribute('onclick', 'Q.api.openFile(\'qruqsp.images.get\', {\'business_id\':Q.curBusinessID, \'image_id\':\'' + img_id + '\', \'version\':\'original\', \'attachment\':\'yes\'});');
+            btn.setAttribute('onclick', 'Q.api.openFile(\'qruqsp.images.get\', {\'station_id\':Q.curStationID, \'image_id\':\'' + img_id + '\', \'version\':\'original\', \'attachment\':\'yes\'});');
             btns.appendChild(btn);
         }
     }
@@ -3960,9 +3960,9 @@ Q.panel.prototype.createFormField = function(s, i, field, fid, mN) {
         var img_id = this.fieldValue(s, i, field, mN);
         if( img_id != null && img_id != '' && img_id > 0 ) {
             if( field.size != null && field.size == 'large' ) {
-                d.innerHTML = '<img src=\'' + Q.api.getBinaryURL('qruqsp.images.get', {'business_id':Q.curBusinessID, 'image_id':img_id, 'version':'original', 'maxwidth':'0', 'maxheight':'600'}) + '&ts=' + new Date().getTime() + '\' />';
+                d.innerHTML = '<img src=\'' + Q.api.getBinaryURL('qruqsp.images.get', {'station_id':Q.curStationID, 'image_id':img_id, 'version':'original', 'maxwidth':'0', 'maxheight':'600'}) + '&ts=' + new Date().getTime() + '\' />';
             } else {
-                d.innerHTML = '<img src=\'' + Q.api.getBinaryURL('qruqsp.images.get', {'business_id':Q.curBusinessID, 'image_id':img_id, 'version':'original', 'maxwidth':'0', 'maxheight':'300'}) + '&ts=' + new Date().getTime() + '\' />';
+                d.innerHTML = '<img src=\'' + Q.api.getBinaryURL('qruqsp.images.get', {'station_id':Q.curStationID, 'image_id':img_id, 'version':'original', 'maxwidth':'0', 'maxheight':'300'}) + '&ts=' + new Date().getTime() + '\' />';
             }
         } else {
             d.innerHTML = '<img src=\'/qruqsp-mods/core/ui/themes/default/img/noimage_200.jpg\' />';
@@ -4034,7 +4034,7 @@ Q.panel.prototype.createFormField = function(s, i, field, fid, mN) {
         d.controls=true;
         if( aid != null && aid != '' && aid > 0 ) {
             d.style.display = 'inline-block';
-            d.src = Q.api.getBinaryURL('qruqsp.audio.download', {'business_id':Q.curBusinessID, 'audio_id':aid}) + '&ts=' + new Date().getTime();
+            d.src = Q.api.getBinaryURL('qruqsp.audio.download', {'station_id':Q.curStationID, 'audio_id':aid}) + '&ts=' + new Date().getTime();
         } else {
             d.style.display = 'none';
         }
@@ -4143,9 +4143,9 @@ Q.panel.prototype.updateImgPreview = function(fid, img_id) {
     var d = Q.gE(this.panelUID + '_' + fid + '_preview');
     if( img_id != null && img_id != '' ) {
         if( f != null && f.size == 'large' ) {
-            d.innerHTML = '<img src=\'' + Q.api.getBinaryURL('qruqsp.images.get', {'business_id':Q.curBusinessID, 'image_id':img_id, 'version':'original', 'maxwidth':'0', 'maxheight':'600'}) + '&ts=' + new Date().getTime() + '\' />';
+            d.innerHTML = '<img src=\'' + Q.api.getBinaryURL('qruqsp.images.get', {'station_id':Q.curStationID, 'image_id':img_id, 'version':'original', 'maxwidth':'0', 'maxheight':'600'}) + '&ts=' + new Date().getTime() + '\' />';
         } else {
-            d.innerHTML = '<img src=\'' + Q.api.getBinaryURL('qruqsp.images.get', {'business_id':Q.curBusinessID, 'image_id':img_id, 'version':'original', 'maxwidth':'0', 'maxheight':'300'}) + '&ts=' + new Date().getTime() + '\' />';
+            d.innerHTML = '<img src=\'' + Q.api.getBinaryURL('qruqsp.images.get', {'station_id':Q.curStationID, 'image_id':img_id, 'version':'original', 'maxwidth':'0', 'maxheight':'300'}) + '&ts=' + new Date().getTime() + '\' />';
         }
     } else {
         d.innerHTML = '<img src=\'/qruqsp-mods/core/ui/themes/default/img/noimage_200.jpg\' />';
@@ -4166,7 +4166,7 @@ Q.panel.prototype.updateAudioPreview = function(fid, aid) {
         abtns.style.display = 'none';
         ebtns.style.display = 'inline-block';
         filename.style.display = 'inline-block';
-        d.src = Q.api.getBinaryURL('qruqsp.audio.download', {'business_id':Q.curBusinessID, 'audio_id':aid}) + '&ts=' + new Date().getTime();
+        d.src = Q.api.getBinaryURL('qruqsp.audio.download', {'station_id':Q.curStationID, 'audio_id':aid}) + '&ts=' + new Date().getTime();
     } else {
         abtns.style.display = 'inline-block';
         ebtns.style.display = 'none';
@@ -6593,7 +6593,7 @@ Q.panel.prototype.uploadDropImagesNext = function() {
         p.addDropImageAPI = 'qruqsp.images.add';
     }
     var rsp = Q.api.postJSONFile(p.addDropImageAPI, 
-        {'business_id':Q.curBusinessID}, 
+        {'station_id':Q.curStationID}, 
         p._uploadFiles[p._uploadCurrent],  // File
         function(rsp) {
             if( rsp.stat != 'ok' ) {
@@ -6715,7 +6715,7 @@ Q.panel.prototype.uploadDropFilesNext = function() {
         p.addDropFileAPI = 'qruqsp.audio.add';
     }
     var rsp = Q.api.postJSONFile(p.addDropFileAPI, 
-        {'business_id':Q.curBusinessID}, 
+        {'station_id':Q.curStationID}, 
         p._uploadFiles[p._uploadCurrent],  // File
         function(rsp) {
             if( rsp.stat != 'ok' ) {
@@ -6745,7 +6745,7 @@ Q.panel.prototype.uploadDropFilesNext = function() {
 Q.panel.prototype.rotateImg = function(fid, dir) {
     var iid = this.formValue(fid);
     var p = this;
-    Q.api.getJSONCb('qruqsp.images.rotate', {'business_id':Q.curBusinessID,
+    Q.api.getJSONCb('qruqsp.images.rotate', {'station_id':Q.curStationID,
         'image_id':iid, 'direction':dir}, function(rsp) {
             if( rsp.stat != 'ok' ) {
                 Q.api.err(rsp);

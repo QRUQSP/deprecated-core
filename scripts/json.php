@@ -107,12 +107,12 @@ if( (isset($q['syncqueue']) && count($q['syncqueue']) > 0)
     } 
     // Run sync queue
     if( isset($q['syncqueue']) && count($q['syncqueue']) > 0 ) {
-        if( isset($q['syncbusinesses']) && count($q['syncbusinesses']) > 0 ) {
-            foreach($q['syncbusinesses'] as $business_id) {
-                qruqsp_core_syncQueueProcess($q, $business_id);
+        if( isset($q['syncstations']) && count($q['syncstations']) > 0 ) {
+            foreach($q['syncstations'] as $station_id) {
+                qruqsp_core_syncQueueProcess($q, $station_id);
             }
-        } elseif( isset($q['request']['args']['business_id']) ) {
-            qruqsp_core_syncQueueProcess($q, $q['request']['args']['business_id']);
+        } elseif( isset($q['request']['args']['station_id']) ) {
+            qruqsp_core_syncQueueProcess($q, $q['request']['args']['station_id']);
         } 
     }
 } else {

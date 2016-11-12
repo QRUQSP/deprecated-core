@@ -1,6 +1,4 @@
 //
-// This class will display the form to allow admins and business owners to 
-// change the details of their business
 //
 function qruqsp_core_help() {
     //

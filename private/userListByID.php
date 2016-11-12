@@ -25,7 +25,7 @@ function qruqsp_core_userListByID($q, $container_name, $ids, $fields) {
     }
 
     //
-    // Query for the business users
+    // Query for the station users
     //
     qruqsp_core_loadMethod($q, 'qruqsp', 'core', 'private', 'dbQuoteIDs');
     if( $fields == 'all' ) {

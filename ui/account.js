@@ -1,6 +1,6 @@
 //
-// This class will display the form to allow admins and business owners to 
-// change the details of their business
+// This class will display the form to allow admins and station owners to 
+// change the details of their station
 //
 function qruqsp_core_account() {
     //
