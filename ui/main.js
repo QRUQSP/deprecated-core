@@ -97,7 +97,7 @@ function qruqsp_core_main() {
             //
             if( rsp != null && rsp.station != null ) {
                 Q.qruqsp_core_main.station.open(cb,rsp.station.id, rsp);
-                return true;
+//                return true;
             }
 
             //
@@ -115,7 +115,7 @@ function qruqsp_core_main() {
     }
     this.stations.addButton('account', 'Account', 'Q.startApp(\'qruqsp.core.account\',null,\'Q.qruqsp_core_main.stations.show();\');');
     if( Q.userID > 0 && (Q.userPerms&0x01) == 0x01 ) {
-        this.stations.addButton('admin', 'Admin', 'Q.startApp(\'qruqsp.core.admin\',null,\'Q.qruqsp_core_main.stations.show();\');');
+        this.stations.addButton('admin', 'Admin', 'Q.startApp(\'qruqsp.admin.main\',null,\'Q.qruqsp_core_main.stations.show();\');');
     }
 
     //
@@ -216,7 +216,7 @@ function qruqsp_core_main() {
             if( cb == null ) {
                 this.addButton('account', 'Account', 'Q.startApp(\'qruqsp.core.account\',null,\'Q.qruqsp_core_main.station.reopen();\');');
                 if( Q.userID > 0 && (Q.userPerms&0x01) == 0x01 ) {
-                    this.addLeftButton('admin', 'Admin', 'Q.startApp(\'qruqsp.core.admin\',null,\'Q.qruqsp_core_main.station.reopen();\');');
+                    this.addLeftButton('admin', 'Admin', 'Q.startApp(\'qruqsp.admin.main\',null,\'Q.qruqsp_core_main.station.reopen();\');');
                 }
             } else {
                 this.addClose('Back');
@@ -394,7 +394,9 @@ function qruqsp_core_main() {
         //
         // Run login options
         //
-        if( Q.qruqsp_core_main.loginActions != null ) {
+        if( rsp.loginActions != null ) {
+            eval(rsp.loginActions);
+        } else if( Q.qruqsp_core_main.loginActions != null ) {
             eval(Q.qruqsp_core_main.loginActions);
         }
     }
