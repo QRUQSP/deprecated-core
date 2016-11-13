@@ -43,7 +43,7 @@ function qruqsp_core_userGet($q) {
     // Get all the information form qruqsp_core table
     //
     $strsql = "SELECT id, avatar_id, email, username, perms, status, timeout, "
-        . "callsign, display_name, login_attempts, "
+        . "callsign, license, display_name, login_attempts, "
         . "DATE_FORMAT(date_added, '" . qruqsp_core_dbQuote($q, $datetime_format) . "') AS date_added, "
         . "DATE_FORMAT(last_updated, '" . qruqsp_core_dbQuote($q, $datetime_format) . "') AS last_updated, "
         . "DATE_FORMAT(last_login, '" . qruqsp_core_dbQuote($q, $datetime_format) . "') AS last_login, "
@@ -67,8 +67,8 @@ function qruqsp_core_userGet($q) {
         . "qruqsp_core_stations.name "
         . "FROM qruqsp_core_station_users, qruqsp_core_stations "
         . "WHERE qruqsp_core_station_users.user_id = '" . qruqsp_core_dbQuote($q, $args['user_id']) . "' "
-        . "AND qruqsp_station_users.station_id = qruqsp_stations.id "
-        . "AND qruqsp_station_users.status = 10 "
+        . "AND qruqsp_core_station_users.station_id = qruqsp_core_stations.id "
+        . "AND qruqsp_core_station_users.status = 10 "
         . "";
     $rc = qruqsp_core_dbHashQuery($q, $strsql, 'qruqsp.core', 'station');
     if( $rc['stat'] != 'ok' ) {

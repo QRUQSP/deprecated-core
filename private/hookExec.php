@@ -15,7 +15,7 @@
 function qruqsp_core_hookExec($q, $business_id, $package, $module, $name, $args) {
     $type = 'hooks';
     if( !file_exists($q['config']['qruqsp.core']['root_dir'] . '/' . $package . '-mods/' . $module . '/' . $type . '/' . $name . '.php') ) {
-        return array('stat'=>'noexist', 'err'=>array('code'=>'qruqsp.core.93', 'msg'=>'Internal Error', 'pmsg'=>'Requested method does not exist'));
+        return array('stat'=>'noexist', 'err'=>array('code'=>'qruqsp.core.137', 'msg'=>'Internal Error', 'pmsg'=>'Requested method does not exist'));
     }
 
     require_once($q['config']['qruqsp.core']['root_dir'] . '/' . $package . '-mods/' . $module . '/' . $type . '/' . $name . '.php');
