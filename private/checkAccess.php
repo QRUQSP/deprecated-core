@@ -56,8 +56,46 @@ function qruqsp_core_checkAccess($q, $station_id, $method) {
     //
     // If the user is a sysadmin, they have access to all functions
     //
-    if( ($q['session']['user']['perms'] & 0x01) == 0x01 ) {
+    if( ($q['session']['user']['perms']&0x01) == 0x01 ) {
         return array('stat'=>'ok');
+    }
+
+    //
+    // Check if the user is an operator of the station
+    //
+    if( $station_id > 0 ) {
+        //
+        // Get the list of permission_groups the user is a part of
+        //
+        ciniki_core_loadMethod($ciniki, 'ciniki', 'core', 'private', 'dbQuote');
+        $strsql = "SELECT permission_group "
+            . "FROM qruqsp_core_station_users "
+            . "WHERE station_id = '" . ciniki_core_dbQuote($ciniki, $station_id) . "' "
+            . "AND user_id = '" . ciniki_core_dbQuote($ciniki, $ciniki['session']['user']['id']) . "' "
+            . "AND status = 10 "    // Active user
+            . "";
+        ciniki_core_loadMethod($ciniki, 'ciniki', 'core', 'private', 'dbQueryList');
+        $rc = ciniki_core_dbQueryList($ciniki, $strsql, 'qruqsp.core', 'groups', 'permission_group');
+        if( $rc['stat'] != 'ok' ) {
+            return $rc;
+        }
+        if( !isset($rc['groups']) ) {
+            return array('stat'=>'fail', 'err'=>array('code'=>'qruqsp.core.138', 'msg'=>'Access denied'));
+        }
+        $groups = $rc['groups'];
+
+        //
+        // The list of methods available to an operator
+        //
+        $operator_methods = array(
+            );
+        
+        //
+        // Check if the user is an operator and if the requested method is in the operator methods
+        //
+        if( in_array($method, $operator_methods) && in_array('operators', $groups) ) {
+            return array('stat'=>'ok');
+        }
     }
 
     //
