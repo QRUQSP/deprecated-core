@@ -13,7 +13,7 @@
 function qruqsp_core_timeFormat($q, $format='mysql') {
 
     if( $format == 'php' ) {
-        return "g:i A";
+        return "H:i";
     }
 
     //
