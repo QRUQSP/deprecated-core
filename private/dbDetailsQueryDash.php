@@ -33,7 +33,7 @@ function qruqsp_core_dbDetailsQueryDash(&$q, $table, $key, $key_value, $module, 
     $result = mysqli_query($dh, $strsql);
     if( $result == false ) {
         error_log("sql error: " . mysqli_error($dh));
-        return array('stat'=>'fail', 'err'=>array('code'=>'qruqsp.core.99', 'msg'=>'Database Error', 'pmsg'=>mysqli_error($dh)));
+        return array('stat'=>'fail', 'err'=>array('code'=>'qruqsp.core.136', 'msg'=>'Database Error', 'pmsg'=>mysqli_error($dh)));
     }
 
     //
