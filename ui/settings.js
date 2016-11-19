@@ -102,6 +102,60 @@ function qruqsp_core_settings() {
     this.modules.addClose('Cancel');
 
     //
+    // The panel to set module flags for a station
+    //
+    this.moduleflags = new Q.panel('Module Options', 'qruqsp_core_settings', 'moduleflags', 'mc', 'medium', 'sectioned', 'qruqsp.core.settings.moduleflags');
+    this.moduleflags.data = {};
+    this.moduleflags.fieldValue = function(s, i, d) { return this.data[i].flags; }
+    // History needs to be fixed to display correctly.
+//    this.moduleflags.fieldHistoryArgs = function(s, i) {
+//        return {'method':'qruqsp.core.stationModuleFlagsHistory', 'args':{'station_id':Q.curStationID, 'field':i}};
+//    }
+    this.moduleflags.open = function(cb) {
+        Q.api.getJSONCb('qruqsp.core.stationModuleFlagsGet', {'station_id':Q.curStationID}, function(rsp) {
+            if( rsp.stat != 'ok' ) {
+                Q.api.err(rsp);
+                return false;
+            }
+            var p = Q.qruqsp_core_settings.moduleflags;
+            p.sections = {};
+            //
+            // Setup the list of modules into the form fields
+            // 
+            p.data = rsp.modules;   
+            for(i in rsp.modules) {
+                if( rsp.modules[i].available_flags != null ) {
+                    var flags = {};
+                    for(j in rsp.modules[i].available_flags) {
+                        flags[rsp.modules[i].available_flags[j].flag.bit] =
+                            {'name':rsp.modules[i].available_flags[j].flag.name};
+                    }
+                    p.sections[i] = { 'label':rsp.modules[i].proper_name, 'fields':{}};
+                    p.sections[i].fields[i] = {'label':'', 'hidelabel':'yes', 'type':'flags', 'join':'no', 'flags':flags};
+                }
+            }
+            p.refresh();
+            p.show(cb);
+        });
+    }
+    this.moduleflags.save = function() {
+        var c = this.serializeForm('no');
+        if( c != '' ) {
+            Q.api.postJSONCb('qruqsp.core.stationModuleFlagsUpdate', {'station_id':Q.curStationID}, c, function(rsp) {
+                if( rsp.stat != 'ok' ) {
+                    Q.api.err(rsp);
+                    return false;
+                }
+                Q.qruqsp_core_settings.moduleflags.close();
+            });
+        } else {
+            this.close();
+        }
+    }
+    this.moduleflags.addButton('save', 'Save', 'Q.qruqsp_core_settings.moduleflags.save();');
+    this.moduleflags.addClose('Cancel');
+
+    //
     // Start the app
     //
     this.start = function(cb, ap, aG) {
