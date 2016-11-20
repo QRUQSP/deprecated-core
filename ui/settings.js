@@ -10,6 +10,7 @@ function qruqsp_core_settings() {
     this.menu = new Q.panel('Station Settings', 'qruqsp_core_settings', 'menu', 'mc', 'narrow', 'sectioned', 'qruqsp.core.settings.menu');
     this.menu.sections = {
         'general':{'label':'', 'aside':'yes', 'list':{
+            'general':{'label':'Station Info', 'fn':'Q.qruqsp_core_settings.info.open(\'Q.qruqsp_core_settings.menu.open();\');'},
             }},
         'modules':{'label':'', 'aside':'yes', 'list':{
             }},
@@ -53,6 +54,88 @@ function qruqsp_core_settings() {
         this.show(cb);
     }
     this.menu.addClose('Back');
+
+    //
+    // The station information
+    //
+    this.info = new Q.panel('Station Information', 'qruqsp_core_settings', 'info', 'mc', 'medium', 'sectioned', 'qruqsp.core.settings.info');
+    this.info.data = {};
+    this.info.sections = {
+        'general':{'label':'General', 'fields':{
+            'station-name':{'label':'Name', 'type':'text'},
+            'station-category':{'label':'Category', 'active':function() { return ((Q.userPerms&0x01)==1?'yes':'no');}, 'type':'text', 'livesearch':'yes', 'livesearchempty':'yes'},
+            'station-sitename':{'label':'Sitename', 'active':function() { return ((Q.userPerms&0x01)==1?'yes':'no');}, 'type':'text'},
+            'station-tagline':{'label':'Tagline', 'type':'text'},
+            }},
+        'contact':{'label':'Contact', 'fields':{
+            'contact-person-name':{'label':'Name', 'type':'text'},
+            'contact-phone-number':{'label':'Phone', 'type':'text'},
+            'contact-cell-number':{'label':'Cell', 'type':'text'},
+            'contact-fax-number':{'label':'Fax', 'type':'text'},
+            'contact-email-address':{'label':'Email', 'type':'text'},
+            }},
+        'address':{'label':'Address', 'fields':{
+            'contact-address-street1':{'label':'Street', 'type':'text'},
+            'contact-address-street2':{'label':'Street', 'type':'text'},
+            'contact-address-city':{'label':'City', 'type':'text'},
+            'contact-address-province':{'label':'Province', 'type':'text'},
+            'contact-address-postal':{'label':'Postal', 'type':'text'},
+            'contact-address-country':{'label':'Country', 'type':'text'},
+            }}
+        };
+    this.info.fieldHistoryArgs = function(s, i) {
+        return {'method':'qruqsp.core.stationSettingsHistory', 'args':{'station_id':Q.curStationID, 'field':i}};
+    }
+    this.info.fieldValue = function(s, i, d) { return this.data[i]; }
+    this.info.liveSearchCb = function(s, i, value) {
+        if( i == 'station-category' ) {
+            Q.api.getJSONBgCb('qruqsp.core.stationCategorySearch', {'station_id':Q.curStationID, 'start_needle':value, 'limit':15}, function(rsp) {
+                Q.qruqsp_core_settings.info.liveSearchShow(s, i, Q.gE(Q.qruqsp_core_settings.info.panelUID + '_' + i), rsp.results);
+            });
+        }
+    };
+    this.info.liveSearchResultValue = function(s, f, i, j, d) {
+        if( f == 'station-category' ) { return d.name; }
+        return '';
+    };
+    this.info.liveSearchResultRowFn = function(s, f, i, j, d) { 
+        if( f == 'station-category' ) {
+            return 'Q.qruqsp_core_settings.info.updateField(\'' + s + '\',\'' + f + '\',\'' + escape(d.name) + '\');';
+        }
+    };
+    this.info.updateField = function(s, fid, result) {
+        Q.gE(this.panelUID + '_' + fid).value = unescape(result);
+        this.removeLiveSearch(s, fid);
+    }; 
+    this.info.open = function(cb) {
+        Q.api.getJSONCb('qruqsp.core.stationSettingsGet', {'station_id':Q.curStationID, 'keys':'station,contact'}, function(rsp) {
+            if( rsp.stat != 'ok' ) {
+                Q.api.err(rsp);
+                return false;
+            }
+            var p = Q.qruqsp_core_settings.info;
+            p.data = rsp.settings;
+            p.refresh();
+            p.show(cb);
+        });
+    }
+    this.info.save = function() {
+        // Serialize the form data into a string for posting
+        var c = this.serializeForm('no');
+        if( c != '' ) {
+            Q.api.postJSONCb('qruqsp.core.stationSettingsUpdate', {'station_id':Q.curStationID}, c, function(rsp) {
+                if( rsp.stat != 'ok' ) {
+                    Q.api.err(rsp);
+                    return false;
+                }
+                Q.qruqsp_core_settings.info.close();
+            });
+        } else {
+            this.close();
+        }
+    }
+    this.info.addButton('save', 'Save', 'Q.qruqsp_core_settings.info.save();');
+    this.info.addClose('Cancel');
 
     //
     // The module edit panel

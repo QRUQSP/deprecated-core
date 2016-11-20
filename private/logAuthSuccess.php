@@ -10,10 +10,10 @@
 // Returns
 // -------
 //
-function qruqsp_core_logAuthSuccess($ciniki) {
+function qruqsp_core_logAuthSuccess($q) {
 
-    qruqsp_core_loadMethod($ciniki, 'ciniki', 'core', 'private', 'dbQuote');
-    qruqsp_core_loadMethod($ciniki, 'ciniki', 'core', 'private', 'dbInsert');
+    qruqsp_core_loadMethod($q, 'qruqsp', 'core', 'private', 'dbQuote');
+    qruqsp_core_loadMethod($q, 'qruqsp', 'core', 'private', 'dbInsert');
 
     $ip_address = 'unknown';
     if( isset($_SERVER['REMOTE_ADDR']) ) {
@@ -27,12 +27,12 @@ function qruqsp_core_logAuthSuccess($ciniki) {
 
     $strsql = "INSERT INTO qruqsp_core_auth_log (user_id, api_key, ip_address, log_date, session_key "
         . ") VALUES ("
-        . "'" . qruqsp_core_dbQuote($ciniki, $ciniki['session']['user']['id']) . "', "
-        . "'" . qruqsp_core_dbQuote($ciniki, $ciniki['request']['api_key']) . "', "
-        . "'" . qruqsp_core_dbQuote($ciniki, $ip_address) . "', "
+        . "'" . qruqsp_core_dbQuote($q, $q['session']['user']['id']) . "', "
+        . "'" . qruqsp_core_dbQuote($q, $q['request']['api_key']) . "', "
+        . "'" . qruqsp_core_dbQuote($q, $ip_address) . "', "
         . "UTC_TIMESTAMP(), "
-        . "'" . qruqsp_core_dbQuote($ciniki, $ciniki['session']['change_log_id']) . "' "
+        . "'" . qruqsp_core_dbQuote($q, $q['session']['change_log_id']) . "' "
         . ")";
-    return qruqsp_core_dbInsert($ciniki, $strsql, 'ciniki.core');  
+    return qruqsp_core_dbInsert($q, $strsql, 'qruqsp.core');  
 }
 ?>

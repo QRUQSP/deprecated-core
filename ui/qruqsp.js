@@ -8,7 +8,7 @@ window.Q = {
     'menus':{},
     'curMenu':'',
     'startMenu':'qruqsp.core.menu',
-    'stationMenu':'qruqsp.core.station',
+    'stationMenu':'qruqsp.core.main',
     'menuHome':null,
     'menuHistory':[],
     'masterStationID':0,
@@ -336,7 +336,8 @@ Q.authUserToken = function(e, s, t) {
                 Q.loadAvatar();
                 // If they only have access to one station, go direct to that menu
                 if( r.station != null && r.station > 0 && Q.stationMenu != null ) {
-                    Q.startApp(Q.stationMenu,null,null,'mc',{'id':r.station});
+                    Q.startApp(Q.startMenu);
+                    // Q.startApp(Q.stationMenu,null,null,'mc',{'id':r.station});
                 } else {
                     Q.startApp(Q.startMenu);
                 }
@@ -373,7 +374,8 @@ Q.authToken = function(e, t) {
                 Q.loadAvatar();
                 // If they only have access to one station, go direct to that menu
                 if( r.station != null && r.station > 0 && Q.stationMenu != null ) {
-                    Q.startApp(Q.stationMenu,null,null,'mc',{'id':r.station});
+                    Q.startApp(Q.startMenu);
+                    // Q.startApp(Q.stationMenu,null,null,'mc',{'id':r.station});
                 } else {
                     Q.startApp(Q.startMenu);
                 }
@@ -438,7 +440,8 @@ Q.auth = function(e, t) {
         Q.loadAvatar();
         // If they only have access to one station, go direct to that menu
         if( r.station != null && r.station > 0 && Q.stationMenu != null ) {
-            Q.startApp(Q.stationMenu,null,null,'mc',{'id':r.station});
+            Q.startApp(Q.startMenu);
+            // Q.startApp(Q.stationMenu,null,null,'mc',{'id':r.station});
         } else {
             Q.startApp(Q.startMenu);
         }

@@ -13,7 +13,7 @@
 #
 # tagline:          The brief one line station description, used under the station name on website.
 #
-# sitename:         The unique name of the station website.  Used in web delivery, and must be
+# permalink:        The unique name of the station website.  Used in web delivery, and must be
 #                   only lowercase letters, numbers, underscore (_) and dash (-).
 #
 # description:      A description of the station, for internal use.
@@ -36,7 +36,7 @@ create table qruqsp_core_stations (
     uuid char(36) not null,
     name varchar(150) not null,
     category varchar(150) not null,
-    sitename varchar(150) not null,
+    permalink varchar(150) not null,
     tagline varchar(255) not null,
     description text not null,
     status tinyint unsigned not null,
@@ -47,4 +47,4 @@ create table qruqsp_core_stations (
     unique index (uuid),
     unique index (sitename),
     index (last_updated)
-) ENGINE=InnoDB, COMMENT='v1.01';
+) ENGINE=InnoDB, COMMENT='v1.02';

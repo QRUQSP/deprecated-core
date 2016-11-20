@@ -264,7 +264,7 @@ function qruqsp_core_main() {
         //
         // If admin, or station owner
         //
-        if( Q.userID > 0 && ( (Q.userPerms&0x01) == 0x01 || Q.curBusiness.permissions.operator != null )) {
+        if( Q.userID > 0 && ( (Q.userPerms&0x01) == 0x01 || Q.curStation.permissions.operators != null )) {
             p.addButton('settings', 'Settings', 'Q.startApp(\'qruqsp.core.settings\',null,\'Q.qruqsp_core_main.station.reopen();\');');
         }
 

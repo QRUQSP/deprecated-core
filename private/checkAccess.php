@@ -67,15 +67,15 @@ function qruqsp_core_checkAccess($q, $station_id, $method) {
         //
         // Get the list of permission_groups the user is a part of
         //
-        ciniki_core_loadMethod($ciniki, 'ciniki', 'core', 'private', 'dbQuote');
+        qruqsp_core_loadMethod($q, 'qruqsp', 'core', 'private', 'dbQuote');
         $strsql = "SELECT permission_group "
             . "FROM qruqsp_core_station_users "
-            . "WHERE station_id = '" . ciniki_core_dbQuote($ciniki, $station_id) . "' "
-            . "AND user_id = '" . ciniki_core_dbQuote($ciniki, $ciniki['session']['user']['id']) . "' "
+            . "WHERE station_id = '" . qruqsp_core_dbQuote($q, $station_id) . "' "
+            . "AND user_id = '" . qruqsp_core_dbQuote($q, $q['session']['user']['id']) . "' "
             . "AND status = 10 "    // Active user
             . "";
-        ciniki_core_loadMethod($ciniki, 'ciniki', 'core', 'private', 'dbQueryList');
-        $rc = ciniki_core_dbQueryList($ciniki, $strsql, 'qruqsp.core', 'groups', 'permission_group');
+        qruqsp_core_loadMethod($q, 'qruqsp', 'core', 'private', 'dbQueryList');
+        $rc = qruqsp_core_dbQueryList($q, $strsql, 'qruqsp.core', 'groups', 'permission_group');
         if( $rc['stat'] != 'ok' ) {
             return $rc;
         }
@@ -88,6 +88,9 @@ function qruqsp_core_checkAccess($q, $station_id, $method) {
         // The list of methods available to an operator
         //
         $operator_methods = array(
+            'qruqsp.core.stationSettingsUpdate',
+            'qruqsp.core.stationSettingsGet',
+            'qruqsp.core.stationSettingsHistory',
             );
         
         //

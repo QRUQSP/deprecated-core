@@ -1,0 +1,5 @@
+//
+// Change the sitename to permalink
+//
+ALTER TABLE qruqsp_core_stations CHANGE sitename permalink varchar(150) not null;
+ALTER TABLE qruqsp_core_stations COMMENT='v1.02';

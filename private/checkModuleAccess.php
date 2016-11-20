@@ -93,7 +93,7 @@ function qruqsp_core_checkModuleAccess(&$q, $station_id, $args) {
         . "WHERE station_id = '" . qruqsp_core_dbQuote($q, $station_id) . "' "
         . "AND user_id = '" . qruqsp_core_dbQuote($q, $q['session']['user']['id']) . "' "
         . "AND status = 10 "
-        . "AND permission_group IN 'operators' "
+        . "AND permission_group = 'operators' "
         . "";
     qruqsp_core_loadMethod($q, 'qruqsp', 'core', 'private', 'dbHashQuery');
     $rc = qruqsp_core_dbHashQuery($q, $strsql, 'qruqsp.core', 'user');

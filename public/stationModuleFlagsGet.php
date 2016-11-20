@@ -45,7 +45,7 @@ function qruqsp_core_stationModuleFlagsGet($q) {
         return $rc;
     }
     if( !isset($rc['modules']) ) {
-        return array('stat'=>'fail', 'err'=>array('code'=>'qruqsp.core.47', 'msg'=>'No station found'));
+        return array('stat'=>'fail', 'err'=>array('code'=>'qruqsp.core.141', 'msg'=>'No station found'));
     }
     $station_modules = $rc['modules'];
 
