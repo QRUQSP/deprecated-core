@@ -45,6 +45,6 @@ create table qruqsp_core_stations (
     last_updated datetime not null,
     primary key (id),
     unique index (uuid),
-    unique index (sitename),
+    unique index (permalink),
     index (last_updated)
 ) ENGINE=InnoDB, COMMENT='v1.02';
