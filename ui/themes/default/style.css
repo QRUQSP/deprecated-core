@@ -1721,6 +1721,13 @@ input.submit {
     cursor: pointer;
 }
 
+table.list tr.highlight,
+table.simplegrid tr.highlight {
+    background: #ffa;
+    font-size: 1em;
+    font-weight: normal;
+}
+
 table.simplegrid tr.statusgreen,
 table.simplegrid td.statusgreen {
     background: #ddffdd;

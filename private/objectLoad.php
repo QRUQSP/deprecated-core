@@ -21,7 +21,7 @@ function qruqsp_core_objectLoad(&$q, $obj_name) {
     list($pkg, $mod, $obj) = explode('.', $obj_name);
 
     if( isset($q['objects'][$pkg][$mod][$obj]) ) {
-        return array('stat'=>'ok', 'object'=>$q['objects'][$pkg][$mod][$obj]);
+        return array('stat'=>'ok', 'pkg'=>$pkg, 'mod'=>$mod, 'object'=>$q['objects'][$pkg][$mod][$obj]);
     }
 
     //
@@ -62,6 +62,6 @@ function qruqsp_core_objectLoad(&$q, $obj_name) {
         $q['objects'][$pkg][$mod] = $objects;
     }
     
-    return array('stat'=>'ok', 'object'=>$objects[$obj]);
+    return array('stat'=>'ok', 'pkg'=>$pkg, 'mod'=>$mod, 'object'=>$objects[$obj]);
 }
 ?>
