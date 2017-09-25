@@ -367,6 +367,9 @@ if( file_exists("$themes_root/default/colors.css") ) {
     print "<style id='station_colours' type='text/css'></style>";
 }
 
+if( isset($config['qruqsp.core']['theme_additional_css']) ) {
+    print "<link rel='stylesheet' type='text/css' href='$manage_themes/default/" . $config['qruqsp.core']['theme_additional_css'] . "' media='screen' />\n";
+}
 print "<link rel='stylesheet' type='text/css' href='$manage_themes/default/print.css' media='print' />\n";
 
 ?>

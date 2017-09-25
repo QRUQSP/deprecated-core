@@ -1,0 +1,28 @@
+html, 
+body,
+#m_error,
+#m_container {
+    background: #000;
+    color: #fff;
+}
+
+table.outline,
+table.border,
+table.list tr > td.input {
+    background: #222;
+}
+h2 {
+    color: #fff;
+}
+input,
+textarea,
+table.list tr.textfield > td input,
+table.list tr.textfield > td.textarea,
+table.list tr.textfield > td textarea,
+table.list > thead > tr > th,
+table.list > thead > tr > td,
+table.list > tfoot > tr > th,
+table.list > tfoot > tr > td {
+    background: #444;
+    color: #fff;
+}
