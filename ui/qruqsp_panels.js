@@ -829,6 +829,8 @@ Q.panel.prototype.createSection = function(i, s) {
         st = this.createAudioList(i);
     } else if( type == 'chart' ) {
         st = this.createChart(i);
+    } else if( type == 'heatmap' ) {
+        st = this.createHeatmap(i);
     } else {
         console.log('Missing section type for: ' + s);
         st = document.createDocumentFragment();
@@ -862,6 +864,55 @@ Q.panel.prototype.createSection = function(i, s) {
     if( gt != null ) { f.appendChild(Q.aE('p', null, 'guided-text guided-show', gt)); }
     return f;
 };
+
+Q.panel.prototype.createHeatmap = function(s) {
+    var f = document.createDocumentFragment();
+
+    var t = Q.addTable(this.panelUID + '_' + s, 'heatmap');
+    var tb = Q.aE('tbody');
+
+    // Load the heatmap data
+    var hm = this.heatmapData(s); 
+    console.log(hm);
+    var range = hm.min - hm.max;
+    
+    for(var i in hm.data) {
+        var tr = Q.aE('tr');
+        var c = Q.aE('th',null,'');
+        c.innerHTML = ''; //hm.data[i].time; 
+        tr.appendChild(c);
+
+        for(var j in hm.data[i].samples) {
+            if( hm.data[i].samples[j] == 0 ) {
+                tr.appendChild(Q.aE('td',null,'nodata','')); //hm.data[i].samples[j]));
+            } else if( hm.data[i].samples[j] == 1 ) {
+                tr.appendChild(Q.aE('td',null,'scrubbed','')); //hm.data[i].samples[j]));
+            } else {
+                //
+                // max -6287
+                // min -6955
+                // val -6500
+                
+                var n = Math.abs(((hm.data[i].samples[j] - hm.min)/range)*10);
+                tr.appendChild(Q.aE('td',null,'data-'+n.toFixed(0),'')); //n.toFixed(0)));
+            }
+        }
+        tb.appendChild(tr);
+    }
+     
+   /* 
+
+    var tr = Q.aE('tr');
+    var c = Q.aE('td',null,'');
+    c.innerHTML = '<canvas id="' + this.panelUID + '_' + s + '_canvas"></canvas>';
+    tr.appendChild(c);
+    tb.appendChild(tr);
+   */
+    t.appendChild(tb);
+
+    f.appendChild(t);
+    return f;
+}
 
 Q.panel.prototype.createChart = function(s) {
     var f = document.createDocumentFragment();
@@ -6754,3 +6805,4 @@ Q.panel.prototype.rotateImg = function(fid, dir) {
             p.updateImgPreview(fid, iid);
         });
 };
+

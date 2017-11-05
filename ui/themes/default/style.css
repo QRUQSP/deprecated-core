@@ -2173,6 +2173,24 @@ table.text tr.text td pre:last-child {
     margin-bottom: 0px;
 }
 
+/**** Heatmaps ***/
+table.heatmap {
+    
+}
+table.heatmap td {
+    padding: 0.2em;
+}
+table.heatmap td.data-1 { background: #fff; }
+table.heatmap td.data-2 { background: #fef; }
+table.heatmap td.data-3 { background: #fdf; }
+table.heatmap td.data-4 { background: #fcf; }
+table.heatmap td.data-5 { background: #fbf; }
+table.heatmap td.data-6 { background: #faf; }
+table.heatmap td.data-7 { background: #f9f; }
+table.heatmap td.data-8 { background: #f8f; }
+table.heatmap td.data-9 { background: #f7f; }
+table.heatmap td.data-10 { background: #f6f; }
+
 /******** Guided mode settings *******/
 div.guided-off .guided-show,
 div.guided-on .guided-hide {
