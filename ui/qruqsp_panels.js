@@ -875,16 +875,17 @@ Q.panel.prototype.createHeatmap = function(s) {
     var hm = this.heatmapData(s); 
     var range = hm.min - hm.max;
     var yscale = 10;
-    var xscale = 25;
+    var xscale = 20;
 
-//    if( hm.data[0] != null && hm.data[0].samples[0] != null ) {
     if( hm.xlabels != null ) {
-        console.log('X labels');
         var tr = Q.aE('tr');
         var c = Q.aE('th',null,'', '');
         tr.appendChild(c);
         for(var j in hm.xlabels) {
             if( (j%xscale) == 0 ) {
+                if( (parseInt(j)+xscale) > hm.xlabels.length ) {
+                    break;
+                }
                 var c = Q.aE('th',null,'xlabel');
                 c.innerHTML = hm.xlabels[j];
                 c.colSpan = xscale;
