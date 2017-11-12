@@ -2178,8 +2178,23 @@ table.heatmap {
     
 }
 table.heatmap td {
-    padding: 0.2em;
+    padding: 2px;
 }
+table.heatmap th.ylabel { 
+    border-top: 1px solid #ddd;
+    font-size: 0.8em;
+    vertical-align: top;
+    padding: 0.25em;
+    color: #aaa;
+}
+table.heatmap th.xlabel { 
+    border-left: 1px solid #ddd;
+    font-size: 0.8em;
+    text-align: left;
+    padding: 0.25em;
+    color: #aaa;
+}
+table.heatmap td.nodata { background: #eee; }
 table.heatmap td.data-1 { background: #fff; }
 table.heatmap td.data-2 { background: #fef; }
 table.heatmap td.data-3 { background: #fdf; }

@@ -873,14 +873,35 @@ Q.panel.prototype.createHeatmap = function(s) {
 
     // Load the heatmap data
     var hm = this.heatmapData(s); 
-    console.log(hm);
     var range = hm.min - hm.max;
+    var yscale = 10;
+    var xscale = 25;
+
+//    if( hm.data[0] != null && hm.data[0].samples[0] != null ) {
+    if( hm.xlabels != null ) {
+        console.log('X labels');
+        var tr = Q.aE('tr');
+        var c = Q.aE('th',null,'', '');
+        tr.appendChild(c);
+        for(var j in hm.xlabels) {
+            if( (j%xscale) == 0 ) {
+                var c = Q.aE('th',null,'xlabel');
+                c.innerHTML = hm.xlabels[j];
+                c.colSpan = xscale;
+                tr.appendChild(c);
+            }
+        }
+        tb.appendChild(tr);
+    }
     
     for(var i in hm.data) {
         var tr = Q.aE('tr');
-        var c = Q.aE('th',null,'');
-        c.innerHTML = ''; //hm.data[i].time; 
-        tr.appendChild(c);
+        if( (i%yscale) == 0 ) {
+            var c = Q.aE('th',null,'ylabel');
+            c.innerHTML = hm.data[i].time;
+            c.rowSpan = yscale;
+            tr.appendChild(c);
+        }
 
         for(var j in hm.data[i].samples) {
             if( hm.data[i].samples[j] == 0 ) {
